@@ -1,5 +1,5 @@
 const express =require('express')
-const serveStatic=require('serve-static')
+const serverStatic=require('serve-static')
 const path=require('path')
 const app=express()
 app.use('/', serverStatic(path.join(__dirname,'/dist'))
