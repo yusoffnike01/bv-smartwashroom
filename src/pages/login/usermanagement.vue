@@ -1,0 +1,389 @@
+<template>
+  <div class="q-pa-md row items-start q-gutter-md">
+    <q-card square style="width: 700px">
+      <q-card-section align="center" class="position">
+        <h5>Register Form Cleaner</h5>
+      </q-card-section>
+
+      <table class="table1" style="width: 600px">
+        <tr>
+          <td>Username:</td>
+          <td>
+            <q-input
+              ref="username"
+              v-model="username"
+              label="username"
+              placeholder=""
+              hint=""
+              :rules="[(val) => !!val || 'Please fill username cleaner ']"
+            />
+          </td>
+        </tr>
+        <tr>
+          <td>Name:</td>
+          <td>
+            <q-input
+              ref="name"
+              v-model="name"
+              label="name"
+              placeholder=""
+              hint=""
+              :rules="[(val) => !!val || 'Please fill username cleaner ']"
+            />
+          </td>
+        </tr>
+
+        <tr>
+          <td>Email:</td>
+          <td>
+            <q-input
+              ref="email"
+              v-model="email"
+              label="email"
+              placeholder="Enter cleaner's Email"
+              hint=""
+              :rules="[
+                (val) => !!val || 'Please Enter Your Email',
+                (val) => this.validationEmail(val) || 'Error Format',
+              ]"
+            />
+          </td>
+        </tr>
+
+        <tr>
+          <td>Password:</td>
+          <td>
+            <q-input
+              ref="password"
+              v-model="password"
+              label="password"
+              placeholder="Enter your Password"
+              hint=""
+              :rules="[(val) => !!val || 'Please Enter Your Password']"
+            />
+          </td>
+        </tr>
+      </table>
+
+      <q-card-section style="justify-content: right">
+        <div class="q-pa-md q-gutter-sm">
+          <q-btn color="primary" label="Register" @click="register" />
+        </div>
+      </q-card-section>
+    </q-card>
+
+    <q-card class="my-card" square style="width: 770px; height: 560px">
+      <q-separator />
+
+      <q-card-actions vertical>
+        <div class="q-pa-md" >
+          <q-table
+            title="Table"
+            :data="data"
+            :columns="columns"
+            row-key="id"
+            :pagination.sync="pagination"
+            :loading="loading"
+            :filter="filter"
+            @request="onRequest"
+            binary-state-sort
+            
+            table-style="height:400px"
+           
+          >
+            <template v-slot:top-right>
+              <q-input
+                borderless
+                dense
+                debounce="300"
+                v-model="filter"
+                placeholder="Search"
+              >
+                <template v-slot:append>
+                  <q-icon name="search" />
+                </template>
+              </q-input>
+            </template>
+          </q-table>
+        </div>
+      </q-card-actions>
+    </q-card>
+
+    <q-card class="my-card flex justify-end" square style="width: 500px ;height:250px;"  >
+    <p>  Profile Admin</p>
+
+      <table class="positionadmin">
+        <tr>
+          <td>ID:</td>
+          <td>S4675</td>
+        </tr>
+        <tr>
+          <td>Name:</td>
+          <td>Aiman Hakim</td>
+        </tr>
+        <tr>
+          <td>Email:</td>
+          <td>yusoff@gmail.com</td>
+        </tr>
+        <tr>
+
+            <tr>
+          <td>Last Login :</td>
+          <td>-----</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="q-pa-md q-gutter-sm">
+              <q-btn label="Update" color="primary" @click="update= true" />
+
+              <q-dialog v-model="update">
+                <q-card style="width: 700px; max-width: 80vw">
+                  <q-card-section>
+                    <div class="text-h6">Update Password</div>
+                  </q-card-section>
+
+                  <q-card-section class="q-pt-none">
+                  <q-input
+          outlined
+          ref="password"
+          v-model="password"
+          label="password"
+          placeholder="Enter your  Confirtmatio Password"
+          hint=""
+          :rules="[(val) => !!val || 'Please Enter Your Password']"
+        />
+                  </q-card-section>
+
+<q-card-section>
+        <q-input
+          outlined
+          ref="confirmationpass"
+          v-model="confirmationpass"
+          label="password"
+          placeholder="Enter your Confirmation Password"
+          hint=""
+          :rules="[(val) => !!val || 'Please Enter Your Password']"
+        />
+      </q-card-section>
+
+                  <q-card-actions align="right" class="bg-white text-teal">
+                    <q-btn flat label="OK" v-close-popup />
+                  </q-card-actions>
+                </q-card>
+              </q-dialog>
+              
+            </div>
+          </td>
+        </tr>
+      </table>
+    </q-card>
+
+    <q-separator />
+  </div>
+</template>
+
+
+
+<script>
+import isEmail from "validator/lib/isEmail";
+
+export default {
+  name: "usermanagement",
+  data() {
+    return {
+      filter: "",
+      loading: false,
+      username: "",
+      name: "",
+      email: "",
+      password: "",
+      confirmationpass:"",
+      update: false,
+
+      pagination: {
+        sortBy: "name",
+        descending: false,
+        page: 1,
+        rowsPerPage: 3,
+        rowsNumber: 10,
+      },
+
+      //name every Column
+      columns: [
+        { name: "User", align: "center", label: "No", field: "userId" },
+        {
+          name: "id",
+          align: "center",
+          label: "Username",
+          field: "id",
+        },
+        { name: "title", align: "center", label: "Name", field: "title" },
+
+        { name: "completed", label: "Email", field: "completed" },
+
+      ],
+      data: [],
+
+      original: [
+        {
+            
+        },
+      ],
+    };
+  },
+
+  mounted() {
+    // get initial data from server (1st page)
+    this.onRequest({
+      pagination: this.pagination,
+      filter: undefined,
+    });
+  },
+
+  methods: {
+    onRequest(props) {
+      const { page, rowsPerPage, sortBy, descending } = props.pagination;
+      const filter = props.filter;
+
+      this.loading = true;
+       this.$store
+          .dispatch("cleaner/display")
+          .then((response) => {
+           
+           this.original=response.data
+           console.log(response.data)
+            setTimeout(() => {
+        // update rowsCount with appropriate value
+        this.pagination.rowsNumber = this.getRowsNumberCount(filter);
+
+        // get all rows if "All" (0) is selected
+        const fetchCount =
+          rowsPerPage === 0 ? this.pagination.rowsNumber : rowsPerPage;
+
+        // calculate starting row of data
+        const startRow = (page - 1) * rowsPerPage;
+
+        // fetch data from "server"
+        const returnedData = this.fetchFromServer(
+          startRow,
+          fetchCount,
+          filter,
+          sortBy,
+          descending
+        );
+
+        // clear out existing data and add new
+        this.data.splice(0, this.data.length, ...returnedData);
+
+        // don't forget to update local pagination object
+        this.pagination.page = page;
+        this.pagination.rowsPerPage = rowsPerPage;
+        this.pagination.sortBy = sortBy;
+        this.pagination.descending = descending;
+
+        // ...and turn of loading indicator
+        this.loading = false;
+      }, 1500)
+         .catch((error) => {
+            this.$q.notify({
+              message: error.response.data.error,
+              color: "negative",
+              icon: "error",
+              position: "top",
+            });
+          });
+            
+          })
+
+      // emulate server
+     
+    },
+
+    fetchFromServer(startRow, count, filter, sortBy, descending) {
+      const data = filter
+        ? this.original.filter((row) => row.Name.includes(filter))
+        : this.original.slice();
+
+      // handle sortBy
+      if (sortBy) {
+        const sortFn =
+          sortBy === "desc"
+            ? descending
+              ? (a, b) => (a.name > b.name ? -1 : a.name < b.name ? 1 : 0)
+              : (a, b) => (a.name > b.name ? 1 : a.name < b.name ? -1 : 0)
+            : descending
+            ? (a, b) => parseFloat(b[sortBy]) - parseFloat(a[sortBy])
+            : (a, b) => parseFloat(a[sortBy]) - parseFloat(b[sortBy]);
+        data.sort(sortFn);
+      }
+
+      return data.slice(startRow, startRow + count);
+    },
+
+    getRowsNumberCount(filter) {
+      if (!filter) {
+        return this.original.length;
+      }
+      let count = 0;
+      this.original.forEach((treat) => {
+        if (treat.Name.includes(filter)) {
+          ++count;
+        }
+      });
+      return count;
+    },
+    validationEmail(value) {
+      return isEmail(value);
+    },
+    register() {
+      let data = {
+        username: this.username,
+        name: this.name,
+        email: this.email,
+        password: this.password,
+      };
+
+    this.$store.dispatch('cleaner/insertdata',data)
+
+    .then(() => {
+            this.$q.notify({
+              message: "Register Successful",
+              color: "blue",
+              icon: "check_circle",
+              position: "top",
+            });
+
+            
+          })
+
+          .catch((error) => {
+            this.$q.notify({
+              // error.response.data.error,
+              message: error.response.data.error,
+              color: "negative",
+              icon: "error",
+              position: "top",
+            });
+          });
+      console.log(data);
+    },
+  },
+};
+</script>
+
+
+<style scoped>
+.position {
+  margin-top: -1%;
+}
+
+.table1 {
+  margin-left: 7%;
+}
+
+.positionadmin
+{
+  
+   margin-left: 7%;
+}
+</style>
