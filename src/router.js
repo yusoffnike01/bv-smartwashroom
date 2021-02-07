@@ -29,7 +29,12 @@ const router = new Router({
     {
       path:'/graphammonia',
       component:()=> import('./pages/login/graphammonia.vue'),
+    },
+    {
+      path:'/counterpeople',
+      component:()=> import('./pages/login/counterpeople.vue'),
     }
+
 
   ]
 

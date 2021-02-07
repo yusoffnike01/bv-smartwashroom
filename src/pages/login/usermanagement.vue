@@ -2,13 +2,10 @@
   <div class="q-pa-md row">
     <div class="col-md-6" >
       <q-card square flat bordered class="my-card q-ma-sm" >
-        <q-card-section align="center">
+        <q-card-section>
           <h5>Register Form Cleaner</h5>
-        </q-card-section>
 
-      
-            
-              <q-input
+ <q-input
                 ref="username"
                 v-model="username"
                 label="username"
@@ -52,9 +49,15 @@
                 hint=""
                 :rules="[(val) => !!val || 'Please Enter Your Password']"
               />
+
+        </q-card-section>
+
+      
+            
+             
       
 
-        <q-card-section style="justify-content: right">
+        <q-card-section >
           <div class="q-pa-md q-gutter-sm">
             <q-btn color="primary" label="Register" @click="register" />
           </div>
@@ -78,7 +81,7 @@
               :filter="filter"
               @request="onRequest"
               binary-state-sort
-              table-style="height:400px"
+              table-style="height:380px"
             >
               <template v-slot:top-right>
                 <q-input
@@ -99,14 +102,17 @@
       </q-card>
     </div>
 
+   <div class="col-md-6">
+      <q-card flat bordered class="my-card q-ma-sm" square>
 
+  <q-card-section dark inset>
 
+ <div class="text-h6">Profile Admin</div>
+          <div class="text-subtitle2">
+           
+          </div>
 
-    
-   <q-card flat bordered class="my-card q-ma-sm" square>
-      <p>Profile Admin</p>
-
-      <table class="positionadmin">
+ <table class="positionadmin">
         <tr>
           <td>ID:</td>
           <td>S4675</td>
@@ -169,10 +175,17 @@
           </td>
         </tr>
       </table>
-    </q-card>
-    <div class="col-md-6"></div>
+  </q-card-section>
 
-    <q-separator />
+
+        </q-card>
+     </div>
+
+
+    
+  
+    
+    
   </div>
 </template>
 
@@ -319,7 +332,20 @@ export default {
       return isEmail(value);
     },
     register() {
-      let data = {
+
+  const usernameSelector = this.$refs.username;
+  const nameSelector = this.$refs.name;
+  const emailSelector = this.$refs.email;
+   const passwordSelector = this.$refs.password;
+ usernameSelector.validate();
+ nameSelector.validate();
+ emailSelector.validate();
+  passwordSelector.validate();
+
+   if (usernameSelector.hasError || nameSelector.hasError||emailSelector.hasError||passwordSelector.hasError) return;
+      else{
+
+ let data = {
         username: this.username,
         name: this.name,
         email: this.email,
@@ -348,6 +374,10 @@ export default {
           });
         });
       console.log(data);
+      }
+
+
+     
     },
   },
 };

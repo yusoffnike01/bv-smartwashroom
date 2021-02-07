@@ -3,26 +3,26 @@
 
 import { Bar } from 'vue-chartjs'
 export default {
-    name:"graphcounter",
+    name:"graphmonthcounter",
     
     extends: Bar,
    mounted() {
         this.renderChart({
             labels: [
-                'Device 01 Toilet 1 Level-35 Male',
-                'Device 02 Toilet 3 Level-35 Female',
-                'Device 03 Toilet 4 Level-36 Male',
+                'January',
+                'February',
+                
                
             ],
             datasets: [{
                     barPercentage: 0.7,
                     categoryPercentage: 0.5,
-                    label: 'Device',
-                    backgroundColor: '#3498eb',
-                    borderColor: '#3498eb',
-                    hoverBackgroundColor: '#3498eb',
-                    hoverBorderColor: '#3498eb',
-                    data: [10, 10, 10],
+                    label: 'Amount',
+                    backgroundColor: '#eb3434',
+                    borderColor: '#eb3434',
+                    hoverBackgroundColor: '#eb3434',
+                    hoverBorderColor: '#eb3434',
+                    data: [33, 27],
                 },
                
             ],
@@ -53,6 +53,3 @@ export default {
     },
 }
 </script>
-<style scoped>
-
-</style>

@@ -1,6 +1,8 @@
 import Axios from "axios";
 
 const InsertAPIDEVICE=''
+const INSERTAPIDEVICECOUNTER=''
+
 
 
 const actions={
@@ -20,6 +22,22 @@ const actions={
               });
           });
     
+    },
+
+    insertdevicecounter(state,payload)
+    {
+      return new Promise((resolve, reject) => {
+        Axios.get(INSERTAPIDEVICECOUNTER ,payload)
+          .then((response) => {
+          
+            console.log(response)
+            resolve(response);
+          })
+          .catch((error) => {
+          
+            reject(error);
+          });
+      });
     }
 }
 

@@ -61,7 +61,7 @@
            
           </q-item-section>
         </q-item>
-        <q-item >
+        <q-item to="/counterpeople" active-class="q-item-no-link-highlighting">
           <q-item-section avatar>
             <q-icon name="transfer_within_a_station" />
           </q-item-section>
@@ -71,6 +71,16 @@
           </q-item-section>
         </q-item>
       
+
+      <q-item  active-class="q-item-no-link-highlighting">
+          <q-item-section avatar>
+            <q-icon name="help" />
+          </q-item-section>
+          <q-item-section>
+            <q-item-label>Help</q-item-label>
+            
+          </q-item-section>
+        </q-item>
       </q-list>
     </q-drawer>
  <q-page-container>

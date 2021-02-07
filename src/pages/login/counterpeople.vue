@@ -1,46 +1,37 @@
-
 <template>
-  <div
-    class="q-pa-md row "
-    
-  >
+  <div class="q-pa-md row">
     <div class="col-md-6">
       <q-card flat bordered class="my-card q-ma-sm" square>
         <q-card-section>
-          <div class="text-h6">The Total Ammonia Device on Toilet</div>
+          <div class="text-h6">The Total People Counter every on Toilet</div>
           <div class="text-subtitle2"></div>
         </q-card-section>
 
-        <q-separator dark inset />
-
-        <q-card-section>
-          <ammonia :height="350" />
-        </q-card-section>
+        <graphcounter :height="350" />
       </q-card>
     </div>
     <div class="col-md-6">
       <q-card flat bordered class="my-card q-ma-sm" square>
         <q-card-section>
-          <div class="text-h6">Ammonia Per Device</div>
+          <div class="text-h6">
+            The Overall People counter Toilet per Month
+            {{ new Date().getFullYear() }}
+          </div>
           <div class="text-subtitle2"></div>
         </q-card-section>
-
-        <q-separator dark inset />
-
-        <q-card-section>
-          <ammoniadevice :height="350" />
-        </q-card-section>
+        <graphmonthcounter :height="350" />
       </q-card>
     </div>
 
     <div class="col-md-6">
       <q-card flat bordered class="my-card q-ma-sm" square>
-        <q-card-section>
-          <div class="text-h6">The list device Ammonia Sensor</div>
-          <div class="text-subtitle2"></div>
+        <q-card-section dark inset>
+          <div class="text-h6">The List Door Devices</div>
+          <div class="text-subtitle2">
+            NOTE: Click on <b>View </b>to go to its details page
+          </div>
         </q-card-section>
 
-        <q-separator dark inset />
         <div class="q-pa-md">
           <q-table
             title="Table"
@@ -67,81 +58,92 @@
                 </template>
               </q-input>
             </template>
+            <template v-slot:body-cell-actions="props">
+              <q-td :props="props">
+                <q-btn
+                  dense
+                  round
+                  flat
+                  color="blue"
+                  @click="editRow(props.row.id)"
+                  icon="edit"
+                ></q-btn>
+                <q-btn
+                  dense
+                  round
+                  flat
+                  color="red"
+                  @click="deleteRow(props.row.id)"
+                  icon="delete"
+                ></q-btn>
+              </q-td>
+            </template>
           </q-table>
         </div>
-        <q-card-section> </q-card-section>
       </q-card>
     </div>
 
-     <div class="col-md-6">
-       <q-card flat bordered class="my-card q-ma-sm" square style="height:445px">
-        <q-card-section>
-          <div class="text-h6">The list device Ammonia Sensor</div>
-          <div class="text-subtitle2"></div>
-        </q-card-section>
-
-        <q-separator dark inset />
-        <div class="q-pa-md">
-       Register Ammonia Sensor Device
-        </div>
-        <q-card-section> 
-          <table class="table1" style="width: 600px">
-            <tr>
-              <td>ID Device </td>
-              <td><q-input
+    <div class="col-md-6">
+      <q-card flat bordered class="my-card q-ma-sm" square>
+          
+           <q-card-section dark inset>
+          <div class="text-h6">The Register Form Device's Door</div>
+          <div class="text-subtitle2">
+           
+          </div>
+<div class="position" style="height:312px; margin-top:8%">
+          <q-input
                 ref="iddevice"
                 v-model="iddevice"
                 label="ID Device"
                 placeholder=""
                 hint=""
-                :rules="[(val) => !!val || 'Please fill ID device ']"
-              /></td>
-            </tr>
-            <tr>
-                <td>Location </td>
-                <td><q-input
+                :rules="[(val) => !!val || 'Please fill ID Device ']"
+              />
+
+
+              <q-input
                 ref="location"
                 v-model="location"
-                label="location"
+                label="Location"
                 placeholder=""
                 hint=""
-                :rules="[(val) => !!val || 'Please fill location ']"
-              /> </td>
+                :rules="[(val) => !!val || 'Please fill Location ']"
+              />
 
-
-            </tr>
-           </table>
-             <div class="button">
+                <div class="button">
               <div class="q-pa-md q-gutter-sm">
-                 <q-btn color="primary" label="Register" @click="register_ammonia" />
+                 <q-btn color="primary" label="Register" @click="register_counter" />
+                 </div>
                 </div>
               </div>
-            
-         <!-- <br><br><br><br><br><br> -->
-         
         </q-card-section>
           
-      </q-card>
-       </div>
+          
+           </q-card>
+
+
+    </div>
   </div>
 </template>
-<script>
-import ammonia from "@/pages/login/ammonia.vue";
-import ammoniadevice from "@/pages/login/ammoniadevice.vue";
-export default {
-  name: "graphammonia",
-  components: {
-    ammonia,
-    ammoniadevice,
-  },
 
+<script>
+import graphcounter from "@/pages/login/graphcounter.vue";
+import graphmonthcounter from "@/pages/login/graphmonthcounter.vue";
+
+export default {
+  name: "counterpeople",
+  components: {
+    graphcounter,
+    graphmonthcounter,
+  },
   data() {
     return {
       filter: "",
       loading: false,
       iddevice: "",
       location: "",
-     
+
       update: false,
 
       pagination: {
@@ -161,10 +163,16 @@ export default {
           label: "ID Device",
           field: "id",
         },
-        { name: "title", align: "center", label: "Ammonia Level (Mg)", field: "title" },
+        {
+          name: "title",
+          align: "center",
+          label: "Ammonia Level (Mg)",
+          field: "title",
+        },
 
         { name: "completed", label: "Update At", field: "completed" },
-         { name: "completed", label: "Location", field: "completed" },
+        { name: "Location", label: "Location", field: "location" },
+        { name: "actions", label: "Actions", field: "", align: "center" },
       ],
       data: [],
 
@@ -268,18 +276,9 @@ export default {
     },
 
     register_ammonia() {
-
-
-     const iddeviceSelector = this.$refs.iddevice;
-      const locationSelector = this.$refs.location
-      iddeviceSelector.validate();
-      locationSelector.validate();
-      if (iddeviceSelector.hasError || locationSelector.hasError) return;
-      else{
-    let data = {
+      let data = {
         iddevice: this.iddevice,
         location: this.location,
-       
       };
 
       this.$store
@@ -293,7 +292,7 @@ export default {
             position: "top",
           });
         })
-// error
+        // error
         .catch(() => {
           this.$q.notify({
             // error.response.data.error,
@@ -304,21 +303,93 @@ export default {
           });
         });
       console.log(data);
-
-      }
-
-
-  
     },
+
+    editRow(props) {
+      this.$store
+        .dispatch("cleaner/updatebyid", props)
+        .then(() => {
+          this.$q.notify({
+            message: "Register Successful",
+            color: "blue",
+            icon: "check_circle",
+            position: "top",
+          });
+        })
+        // error
+        .catch(() => {
+          this.$q.notify({
+            // error.response.data.error,
+            message: "PLEASE INSERT API FIRST... THANK YOU",
+            color: "negative",
+            icon: "error",
+            position: "top",
+          });
+        });
+    },
+    deleteRow(id) {
+      this.$store
+        .dispatch("cleaner/deletebyid", id)
+        .then(() => {
+          this.$q.notify({
+            message: "Register Successful",
+            color: "blue",
+            icon: "check_circle",
+            position: "top",
+          });
+        })
+        // error
+        .catch(() => {
+          this.$q.notify({
+            // error.response.data.error,
+            message: "PLEASE INSERT API FIRST... THANK YOU",
+            color: "negative",
+            icon: "error",
+            position: "top",
+          });
+        });
+    },
+    register_counter()
+    {
+
+
+          const iddeviceSelector = this.$refs.iddevice;
+      const locationSelector = this.$refs.location
+      iddeviceSelector.validate();
+      locationSelector.validate();
+      if (iddeviceSelector.hasError || locationSelector.hasError) return;
+      else{
+
+ let data = {
+        iddevice: this.iddevice,
+        location: this.location,
+       
+      };
+    
+
+  this.$store.dispatch('deviceammonia/insertdevicecounter',data)
+       .then(() => {
+          this.$q.notify({
+            message: "Register Successful",
+            color: "blue",
+            icon: "check_circle",
+            position: "top",
+          });
+        })
+        // error
+        .catch(() => {
+          this.$q.notify({
+            // error.response.data.error,
+            message: "PLEASE INSERT API FIRST... THANK YOU",
+            color: "negative",
+            icon: "error",
+            position: "top",
+          });
+        });
+      }
+        
+     
+    }
   },
 };
 </script>
-<style scoped>
-.button
-{
-  position: absolute;
-  right: 0;
-
-
-}
-</style>
