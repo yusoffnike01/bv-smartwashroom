@@ -1,5 +1,5 @@
 <template>
-  <q-layout view="lHh Lpr lFf">
+  <q-layout view="hHh Lpr lff">
     <q-header  class="header">
       <q-toolbar>
         <q-btn
@@ -52,7 +52,7 @@
           
           </q-item-section>
         </q-item>
-        <q-item clickable   to="/usermanagement">
+        <q-item clickable  to="/graphammonia" active-class="q-item-no-link-highlighting">
           <q-item-section avatar>
             <q-icon name="perm_device_information" />
           </q-item-section>
@@ -61,7 +61,7 @@
            
           </q-item-section>
         </q-item>
-        <q-item to="/graphammonia" active-class="q-item-no-link-highlighting">
+        <q-item >
           <q-item-section avatar>
             <q-icon name="transfer_within_a_station" />
           </q-item-section>
