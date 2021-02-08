@@ -1,11 +1,13 @@
 
 <template>
-  <div
-    class="q-pa-md row "
-    
-  >
-    <div class="col-md-6">
-      <q-card flat bordered class="my-card q-ma-sm" square>
+   <div class="q-pa-md">
+
+ <div class=" row justify-center">
+
+ <div class="col-12 col-md-6">
+
+
+ <q-card flat bordered class="my-card q-ma-sm" square>
         <q-card-section>
           <div class="text-h6">The Total Ammonia Device on Toilet</div>
           <div class="text-subtitle2"></div>
@@ -17,9 +19,12 @@
           <ammonia :height="350" />
         </q-card-section>
       </q-card>
-    </div>
-    <div class="col-md-6">
-      <q-card flat bordered class="my-card q-ma-sm" square>
+
+   </div>
+
+  <div class=" col-12 col-md-6">
+
+  <q-card flat bordered class="my-card q-ma-sm" square>
         <q-card-section>
           <div class="text-h6">Ammonia Per Device</div>
           <div class="text-subtitle2"></div>
@@ -31,10 +36,13 @@
           <ammoniadevice :height="350" />
         </q-card-section>
       </q-card>
+
     </div>
 
-    <div class="col-md-6">
-      <q-card flat bordered class="my-card q-ma-sm" square>
+
+<div class=" col-12 col-md-6">
+
+<q-card flat bordered class="my-card q-ma-sm" square>
         <q-card-section>
           <div class="text-h6">The list device Ammonia Sensor</div>
           <div class="text-subtitle2"></div>
@@ -71,10 +79,12 @@
         </div>
         <q-card-section> </q-card-section>
       </q-card>
-    </div>
 
-     <div class="col-md-6">
-       <q-card flat bordered class="my-card q-ma-sm" square style="height:445px">
+  </div>
+
+
+<div class=" col-12 col-md-6">
+ <q-card flat bordered class="my-card q-ma-sm" square style="height:445px">
         <q-card-section>
           <div class="text-h6">The list device Ammonia Sensor</div>
           <div class="text-subtitle2"></div>
@@ -85,32 +95,30 @@
        Register Ammonia Sensor Device
         </div>
         <q-card-section> 
-          <table class="table1" style="width: 600px">
-            <tr>
-              <td>ID Device </td>
-              <td><q-input
+        
+         
+             <q-input
                 ref="iddevice"
                 v-model="iddevice"
                 label="ID Device"
                 placeholder=""
                 hint=""
                 :rules="[(val) => !!val || 'Please fill ID device ']"
-              /></td>
-            </tr>
-            <tr>
-                <td>Location </td>
-                <td><q-input
+              />
+            
+           
+                Location 
+                <q-input
                 ref="location"
                 v-model="location"
                 label="location"
                 placeholder=""
                 hint=""
                 :rules="[(val) => !!val || 'Please fill location ']"
-              /> </td>
+              /> 
 
 
-            </tr>
-           </table>
+         
              <div class="button">
               <div class="q-pa-md q-gutter-sm">
                  <q-btn color="primary" label="Register" @click="register_ammonia" />
@@ -122,9 +130,41 @@
         </q-card-section>
           
       </q-card>
-       </div>
+
   </div>
+
+
+   </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+     </div>
 </template>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <script>
 import ammonia from "@/pages/login/ammonia.vue";
 import ammoniadevice from "@/pages/login/ammoniadevice.vue";

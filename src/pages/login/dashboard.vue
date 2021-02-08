@@ -33,16 +33,8 @@
       content-class="bg-grey-2"
     >
       <q-list>
-        <q-item-label header>Navigation </q-item-label>
-        <q-item clickable tag="a" >
-          <q-item-section avatar>
-            <q-icon name="dashboard" />
-          </q-item-section>
-          <q-item-section>
-            <q-item-label>Dashboard</q-item-label>
-            
-          </q-item-section>
-        </q-item>
+        <q-item-label header>Dashboard </q-item-label>
+       
         <q-item to="/usermanagement" active-class="q-item-no-link-highlighting" >
           <q-item-section avatar>
             <q-icon name="account_circle" />

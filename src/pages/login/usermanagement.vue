@@ -1,7 +1,12 @@
 <template>
-  <div class="q-pa-md row">
-    <div class="col-md-6" >
-      <q-card square flat bordered class="my-card q-ma-sm" >
+ <div class="q-pa-md">
+
+  <div class=" row justify-center">
+      
+
+      
+      <div class="col-12 col-md-6">
+          <q-card square flat bordered class="my-card q-ma-sm" >
         <q-card-section>
           <h5>Register Form Cleaner</h5>
 
@@ -63,14 +68,23 @@
           </div>
         </q-card-section>
       </q-card>
-    </div>
+      </div>
 
-    <div class="col-md-6">
-      <q-card  square flat bordered class="my-card q-ma-sm"> 
-        <q-separator />
 
-        <q-card-actions vertical>
-          <div class="q-pa-md">
+
+
+
+
+
+
+
+
+      <div class=" col-12 col-md-6">
+         <q-card  square flat bordered class="my-card q-mt-sm"> 
+        
+
+        <q-card-section>
+        
             <q-table
               title="Table"
               :data="data"
@@ -81,7 +95,7 @@
               :filter="filter"
               @request="onRequest"
               binary-state-sort
-              table-style="height:380px"
+              table-style="height:402px"
             >
               <template v-slot:top-right>
                 <q-input
@@ -97,13 +111,18 @@
                 </q-input>
               </template>
             </q-table>
-          </div>
-        </q-card-actions>
+        
+        </q-card-section>
       </q-card>
+      </div>
+   
     </div>
 
-   <div class="col-md-6">
-      <q-card flat bordered class="my-card q-ma-sm" square>
+
+
+    <div class="row">
+      <div class="col-12 col-md-6">
+            <q-card flat bordered class="my-card q-ma-sm" square>
 
   <q-card-section dark inset>
 
@@ -148,7 +167,7 @@
                       ref="password"
                       v-model="password"
                       label="password"
-                      placeholder="Enter your  Confirtmatio Password"
+                      placeholder="Enter your  Password"
                       hint=""
                       :rules="[(val) => !!val || 'Please Enter Your Password']"
                     />
@@ -179,13 +198,15 @@
 
 
         </q-card>
-     </div>
+      </div>
 
 
+
+
+
     
-  
-    
-    
+    </div>
+
   </div>
 </template>
 
@@ -383,7 +404,3 @@ export default {
 };
 </script>
 
-
-<style scoped>
-
-</style>

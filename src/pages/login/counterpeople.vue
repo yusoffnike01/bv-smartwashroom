@@ -1,7 +1,12 @@
 <template>
-  <div class="q-pa-md row">
-    <div class="col-md-6">
-      <q-card flat bordered class="my-card q-ma-sm" square>
+ 
+ <div class="q-pa-md">
+
+<div class=" row justify-center">
+
+<div class="col-12 col-md-6">
+
+   <q-card flat bordered class="my-card q-ma-sm" square>
         <q-card-section>
           <div class="text-h6">The Total People Counter every on Toilet</div>
           <div class="text-subtitle2"></div>
@@ -9,9 +14,15 @@
 
         <graphcounter :height="350" />
       </q-card>
-    </div>
-    <div class="col-md-6">
-      <q-card flat bordered class="my-card q-ma-sm" square>
+
+
+
+  </div>
+
+
+<div class="col-12 col-md-6">
+
+  <q-card flat bordered class="my-card q-ma-sm" square>
         <q-card-section>
           <div class="text-h6">
             The Overall People counter Toilet per Month
@@ -21,10 +32,16 @@
         </q-card-section>
         <graphmonthcounter :height="350" />
       </q-card>
-    </div>
 
-    <div class="col-md-6">
-      <q-card flat bordered class="my-card q-ma-sm" square>
+
+
+
+  </div>
+
+
+<div class="col-12 col-md-6">
+
+     <q-card flat bordered class="my-card q-ma-sm" square>
         <q-card-section dark inset>
           <div class="text-h6">The List Door Devices</div>
           <div class="text-subtitle2">
@@ -81,9 +98,15 @@
           </q-table>
         </div>
       </q-card>
-    </div>
 
-    <div class="col-md-6">
+
+
+  </div>
+
+
+
+<div class="col-12 col-md-6">
+
       <q-card flat bordered class="my-card q-ma-sm" square>
           
            <q-card-section dark inset>
@@ -123,9 +146,43 @@
            </q-card>
 
 
-    </div>
+
   </div>
+
+
+  </div>
+
+
+
+
+   </div>
+
+
+
 </template>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 <script>
 import graphcounter from "@/pages/login/graphcounter.vue";
