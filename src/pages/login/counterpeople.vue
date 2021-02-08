@@ -1,121 +1,110 @@
 <template>
- 
- <div class="q-pa-md">
+  <div class="q-pa-md">
+    <div class="row justify-center">
+      <div class="col-12 col-md-6">
+        <q-card flat bordered class="my-card q-ma-sm" square>
+          <q-card-section>
+            <div class="text-h6">The Total People Counter every on Toilet</div>
+            <div class="text-subtitle2"></div>
+          </q-card-section>
 
-<div class=" row justify-center">
+          <graphcounter :height="350" />
+        </q-card>
+      </div>
 
-<div class="col-12 col-md-6">
+      <div class="col-12 col-md-6">
+        <q-card flat bordered class="my-card q-ma-sm" square>
+          <q-card-section>
+            <div class="text-h6">
+              The Overall People counter Toilet per Month
+              {{ new Date().getFullYear() }}
+            </div>
+            <div class="text-subtitle2"></div>
+          </q-card-section>
+          <graphmonthcounter :height="350" />
+        </q-card>
+      </div>
 
-   <q-card flat bordered class="my-card q-ma-sm" square>
-        <q-card-section>
-          <div class="text-h6">The Total People Counter every on Toilet</div>
-          <div class="text-subtitle2"></div>
-        </q-card-section>
+      <div class="col-12 col-md-6">
+        <q-card flat bordered class="my-card q-ma-sm" square>
+          <q-card-section dark inset>
+            <div class="text-h6">The List Door Devices</div>
+            <div class="text-subtitle2">
+              NOTE: Click on <b>View </b>
 
-        <graphcounter :height="350" />
-      </q-card>
+              <q-btn dense round flat color="green" icon="visibility"></q-btn>
 
+              to go to its details page
+            </div>
+          </q-card-section>
 
-
-  </div>
-
-
-<div class="col-12 col-md-6">
-
-  <q-card flat bordered class="my-card q-ma-sm" square>
-        <q-card-section>
-          <div class="text-h6">
-            The Overall People counter Toilet per Month
-            {{ new Date().getFullYear() }}
+          <div class="q-pa-md">
+            <q-table
+              title="Table"
+              :data="data"
+              :columns="columns"
+              row-key="id"
+              :pagination.sync="pagination"
+              :loading="loading"
+              :filter="filter"
+              @request="onRequest"
+              binary-state-sort
+              table-style="height:200px"
+            >
+              <template v-slot:top-right>
+                <q-input
+                  borderless
+                  dense
+                  debounce="300"
+                  v-model="filter"
+                  placeholder="Search"
+                >
+                  <template v-slot:append>
+                    <q-icon name="search" />
+                  </template>
+                </q-input>
+              </template>
+              <template v-slot:body-cell-actions="props">
+                <q-td :props="props">
+                  <q-btn
+                    dense
+                    round
+                    flat
+                    color="blue"
+                    @click="editRow(props.row.id)"
+                    icon="edit"
+                  ></q-btn>
+                  <q-btn
+                    dense
+                    round
+                    flat
+                    color="red"
+                    @click="deleteRow(props.row.id)"
+                    icon="delete"
+                  ></q-btn>
+                  <q-btn
+                    dense
+                    round
+                    flat
+                    color="green"
+                    @click="details(props.row)"
+                    to="/detailviewcounter"
+                    icon="visibility"
+                  ></q-btn>
+                </q-td>
+              </template>
+            </q-table>
           </div>
-          <div class="text-subtitle2"></div>
-        </q-card-section>
-        <graphmonthcounter :height="350" />
-      </q-card>
+        </q-card>
+      </div>
 
-
-
-
-  </div>
-
-
-<div class="col-12 col-md-6">
-
-     <q-card flat bordered class="my-card q-ma-sm" square>
-        <q-card-section dark inset>
-          <div class="text-h6">The List Door Devices</div>
-          <div class="text-subtitle2">
-            NOTE: Click on <b>View </b>to go to its details page
-          </div>
-        </q-card-section>
-
-        <div class="q-pa-md">
-          <q-table
-            title="Table"
-            :data="data"
-            :columns="columns"
-            row-key="id"
-            :pagination.sync="pagination"
-            :loading="loading"
-            :filter="filter"
-            @request="onRequest"
-            binary-state-sort
-            table-style="height:200px"
-          >
-            <template v-slot:top-right>
+      <div class="col-12 col-md-6">
+        <q-card flat bordered class="my-card q-ma-sm" square>
+          <q-card-section dark inset>
+            <div class="text-h6">The Register Form Device's Door</div>
+            <div class="text-subtitle2"></div>
+            <div class="position" style="height: 312px; margin-top: 8%">
               <q-input
-                borderless
-                dense
-                debounce="300"
-                v-model="filter"
-                placeholder="Search"
-              >
-                <template v-slot:append>
-                  <q-icon name="search" />
-                </template>
-              </q-input>
-            </template>
-            <template v-slot:body-cell-actions="props">
-              <q-td :props="props">
-                <q-btn
-                  dense
-                  round
-                  flat
-                  color="blue"
-                  @click="editRow(props.row.id)"
-                  icon="edit"
-                ></q-btn>
-                <q-btn
-                  dense
-                  round
-                  flat
-                  color="red"
-                  @click="deleteRow(props.row.id)"
-                  icon="delete"
-                ></q-btn>
-              </q-td>
-            </template>
-          </q-table>
-        </div>
-      </q-card>
-
-
-
-  </div>
-
-
-
-<div class="col-12 col-md-6">
-
-      <q-card flat bordered class="my-card q-ma-sm" square>
-          
-           <q-card-section dark inset>
-          <div class="text-h6">The Register Form Device's Door</div>
-          <div class="text-subtitle2">
-           
-          </div>
-<div class="position" style="height:312px; margin-top:8%">
-          <q-input
                 ref="iddevice"
                 v-model="iddevice"
                 label="ID Device"
@@ -123,7 +112,6 @@
                 hint=""
                 :rules="[(val) => !!val || 'Please fill ID Device ']"
               />
-
 
               <q-input
                 ref="location"
@@ -134,31 +122,30 @@
                 :rules="[(val) => !!val || 'Please fill Location ']"
               />
 
-                <div class="button">
-              <div class="q-pa-md q-gutter-sm">
-                 <q-btn color="primary" label="Register" @click="register_counter" />
-                 </div>
+              <q-input
+                ref="maxpeople"
+                v-model="maxpeople"
+                label="Max people count"
+                placeholder=""
+                hint=""
+                :rules="[(val) => !!val || 'Please fill max people count']"
+              />
+
+              <div class="button">
+                <div class="q-pa-md q-gutter-sm">
+                  <q-btn
+                    color="primary"
+                    label="Register"
+                    @click="register_counter"
+                  />
                 </div>
               </div>
-        </q-card-section>
-          
-          
-           </q-card>
-
-
-
+            </div>
+          </q-card-section>
+        </q-card>
+      </div>
+    </div>
   </div>
-
-
-  </div>
-
-
-
-
-   </div>
-
-
-
 </template>
 
 
@@ -200,6 +187,7 @@ export default {
       loading: false,
       iddevice: "",
       location: "",
+      maxpeople:"",
 
       update: false,
 
@@ -223,7 +211,7 @@ export default {
         {
           name: "title",
           align: "center",
-          label: "Ammonia Level (Mg)",
+          label: "Count",
           field: "title",
         },
 
@@ -251,41 +239,45 @@ export default {
       const filter = props.filter;
 
       this.loading = true;
-      this.$store.dispatch("cleaner/display").then((response) => {
-        this.original = response.data;
-        console.log(response.data);
-        setTimeout(() => {
-          // update rowsCount with appropriate value
-          this.pagination.rowsNumber = this.getRowsNumberCount(filter);
+      this.$store
+        .dispatch("cleaner/display")
+        .then((response) => {
+          this.original = response.data;
+          console.log(response.data);
+          setTimeout(() => {
+            // update rowsCount with appropriate value
+            this.pagination.rowsNumber = this.getRowsNumberCount(filter);
 
-          // get all rows if "All" (0) is selected
-          const fetchCount =
-            rowsPerPage === 0 ? this.pagination.rowsNumber : rowsPerPage;
+            // get all rows if "All" (0) is selected
+            const fetchCount =
+              rowsPerPage === 0 ? this.pagination.rowsNumber : rowsPerPage;
 
-          // calculate starting row of data
-          const startRow = (page - 1) * rowsPerPage;
+            // calculate starting row of data
+            const startRow = (page - 1) * rowsPerPage;
 
-          // fetch data from "server"
-          const returnedData = this.fetchFromServer(
-            startRow,
-            fetchCount,
-            filter,
-            sortBy,
-            descending
-          );
+            // fetch data from "server"
+            const returnedData = this.fetchFromServer(
+              startRow,
+              fetchCount,
+              filter,
+              sortBy,
+              descending
+            );
 
-          // clear out existing data and add new
-          this.data.splice(0, this.data.length, ...returnedData);
+            // clear out existing data and add new
+            this.data.splice(0, this.data.length, ...returnedData);
 
-          // don't forget to update local pagination object
-          this.pagination.page = page;
-          this.pagination.rowsPerPage = rowsPerPage;
-          this.pagination.sortBy = sortBy;
-          this.pagination.descending = descending;
+            // don't forget to update local pagination object
+            this.pagination.page = page;
+            this.pagination.rowsPerPage = rowsPerPage;
+            this.pagination.sortBy = sortBy;
+            this.pagination.descending = descending;
 
-          // ...and turn of loading indicator
-          this.loading = false;
-        }, 1500).catch((error) => {
+            // ...and turn of loading indicator
+            this.loading = false;
+          }, 1500);
+        })
+        .catch((error) => {
           this.$q.notify({
             message: error.response.data.error,
             color: "negative",
@@ -293,7 +285,6 @@ export default {
             position: "top",
           });
         });
-      });
 
       // emulate server
     },
@@ -332,35 +323,37 @@ export default {
       return count;
     },
 
-    register_ammonia() {
-      let data = {
-        iddevice: this.iddevice,
-        location: this.location,
-      };
+    // register_ammonia() {
+    //   let data = {
+    //     iddevice: this.iddevice,
+    //     location: this.location,
+    //     maxpeople:this.maxpeople
 
-      this.$store
-        .dispatch("deviceammonia/insertdeviceamonia", data)
+    //   };
 
-        .then(() => {
-          this.$q.notify({
-            message: "Register Successful",
-            color: "blue",
-            icon: "check_circle",
-            position: "top",
-          });
-        })
-        // error
-        .catch(() => {
-          this.$q.notify({
-            // error.response.data.error,
-            message: "PLEASE INSERT API FIRST... THANK YOU",
-            color: "negative",
-            icon: "error",
-            position: "top",
-          });
-        });
-      console.log(data);
-    },
+    //   this.$store
+    //     .dispatch("deviceammonia/insertdeviceamonia", data)
+
+    //     .then(() => {
+    //       this.$q.notify({
+    //         message: "Register Successful",
+    //         color: "blue",
+    //         icon: "check_circle",
+    //         position: "top",
+    //       });
+    //     })
+    //     // error
+    //     .catch(() => {
+    //       this.$q.notify({
+    //         // error.response.data.error,
+    //         message: "PLEASE INSERT API FIRST... THANK YOU",
+    //         color: "negative",
+    //         icon: "error",
+    //         position: "top",
+    //       });
+    //     });
+    //   console.log(data);
+    // },
 
     editRow(props) {
       this.$store
@@ -406,47 +399,47 @@ export default {
           });
         });
     },
-    register_counter()
-    {
 
-
-          const iddeviceSelector = this.$refs.iddevice;
-      const locationSelector = this.$refs.location
+    details(props) {
+      console.log(props);
+      this.$store.dispatch("deviceammonia/successdata", props).then(() => {});
+    },
+    register_counter() {
+      const iddeviceSelector = this.$refs.iddevice;
+      const locationSelector = this.$refs.location;
+      const maxpeopleSelector=this.$refs.maxpeople;
       iddeviceSelector.validate();
       locationSelector.validate();
-      if (iddeviceSelector.hasError || locationSelector.hasError) return;
-      else{
+      if (iddeviceSelector.hasError || locationSelector.hasError|| maxpeopleSelector.hasError) return;
+      else {
+        let data = {
+          iddevice: this.iddevice,
+          location: this.location,
+          maxpeople:this.maxpeople
+        };
 
- let data = {
-        iddevice: this.iddevice,
-        location: this.location,
-       
-      };
-    
-
-  this.$store.dispatch('deviceammonia/insertdevicecounter',data)
-       .then(() => {
-          this.$q.notify({
-            message: "Register Successful",
-            color: "blue",
-            icon: "check_circle",
-            position: "top",
+        this.$store
+          .dispatch("deviceammonia/insertdevicecounter", data)
+          .then(() => {
+            this.$q.notify({
+              message: "Register Successful",
+              color: "blue",
+              icon: "check_circle",
+              position: "top",
+            });
+          })
+          // error
+          .catch(() => {
+            this.$q.notify({
+              // error.response.data.error,
+              message: "PLEASE INSERT API FIRST... THANK YOU",
+              color: "negative",
+              icon: "error",
+              position: "top",
+            });
           });
-        })
-        // error
-        .catch(() => {
-          this.$q.notify({
-            // error.response.data.error,
-            message: "PLEASE INSERT API FIRST... THANK YOU",
-            color: "negative",
-            icon: "error",
-            position: "top",
-          });
-        });
       }
-        
-     
-    }
+    },
   },
 };
 </script>

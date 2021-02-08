@@ -5,6 +5,33 @@ const INSERTAPIDEVICECOUNTER=''
 
 
 
+
+const state = () => ({
+  data:{}
+ 
+ 
+});
+
+
+const mutations = {
+
+getdata(state,payload)
+{
+  state.data=payload
+  
+},
+
+
+
+
+
+
+};
+const getters={
+  isGetdatabyID: (state) => !!state.data,
+  getdatabyId:state=>state.data
+}
+
 const actions={
 
     insertdeviceamonia(state,payload)
@@ -38,12 +65,32 @@ const actions={
             reject(error);
           });
       });
+    },
+    successdata({ commit },payload)
+    {
+      return new Promise((resolve) => {
+
+        commit("getdata", payload);
+        resolve()
+       
+      });
+
+
+
+
+
+
     }
-}
+  }
+
+
 
 export default {
     namespaced: true,
+    state,
+    mutations,
     actions,
+    getters
    
   };
   

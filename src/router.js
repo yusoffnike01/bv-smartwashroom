@@ -33,6 +33,10 @@ const router = new Router({
     {
       path:'/counterpeople',
       component:()=> import('./pages/login/counterpeople.vue'),
+    },
+    {
+      path:'/detailviewcounter',
+      component:()=> import('./pages/login/detailviewcounter.vue'),
     }
 
 

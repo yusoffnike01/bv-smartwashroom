@@ -45,7 +45,45 @@
 <q-card flat bordered class="my-card q-ma-sm" square>
         <q-card-section>
           <div class="text-h6">The list device Ammonia Sensor</div>
-          <div class="text-subtitle2"></div>
+          <div class="text-subtitle2">Click Here to set level Ammonia    <q-btn
+                    dense
+                    round
+                    flat
+                    color="blue"
+                    @click="update = true"
+                    icon="sensors"
+
+                  ></q-btn>
+
+              <q-dialog v-model="update">
+                <q-card style="width: 700px; max-width: 80vw">
+                  <q-card-section>
+                    <div class="text-h6">Set Level Ammonia Gas</div>
+                  </q-card-section>
+
+                  <q-card-section class="q-pt-none">
+                    <q-input
+                      outlined
+                      ref="level"
+                      v-model="level"
+                      label="level"
+                      placeholder="Set Level Ammonia Gas"
+                      hint=""
+                      :rules="[(val) => !!val || 'Please Fill level Ammonia']"
+                    />
+                  </q-card-section>
+
+                
+
+                  <q-card-actions align="right" class="bg-white text-teal">
+                    <q-btn flat label="OK" v-close-popup />
+                  </q-card-actions>
+                </q-card>
+              </q-dialog>
+
+
+
+          </div>
         </q-card-section>
 
         <q-separator dark inset />
@@ -73,6 +111,29 @@
                 <template v-slot:append>
                   <q-icon name="search" />
                 </template>
+  <template v-slot:body-cell-actions="props">
+                <q-td :props="props">
+                  <q-btn
+                    dense
+                    round
+                    flat
+                    color="blue"
+                    @click="editRow(props.row.id)"
+                    icon="edit"
+                  ></q-btn>
+                  <q-btn
+                    dense
+                    round
+                    flat
+                    color="red"
+                   
+                    icon="delete"
+                  ></q-btn>
+           
+                </q-td>
+              </template>
+
+
               </q-input>
             </template>
           </q-table>
@@ -107,7 +168,7 @@
               />
             
            
-                Location 
+               
                 <q-input
                 ref="location"
                 v-model="location"
@@ -205,6 +266,7 @@ export default {
 
         { name: "completed", label: "Update At", field: "completed" },
          { name: "completed", label: "Location", field: "completed" },
+          { name: "Action", label: "Action", field: "Action" },
       ],
       data: [],
 

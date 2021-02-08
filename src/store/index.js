@@ -10,7 +10,8 @@ const store= new Vuex.Store(
         modules:{
             auth,
             cleaner,
-            deviceammonia
+            deviceammonia,
+           
         }
         // state: {
         //    user :{
