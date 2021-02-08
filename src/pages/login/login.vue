@@ -46,13 +46,17 @@
       </q-card-section>
 
       <q-card-section>
+
+        
         <q-input
           outlined
           ref="password"
           v-model="password"
+        filled type="password"
           label="password"
           placeholder="Enter your Password"
           hint=""
+          
           :rules="[(val) => !!val || 'Please Enter Your Password']"
         />
       </q-card-section>
