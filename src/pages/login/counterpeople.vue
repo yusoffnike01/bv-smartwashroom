@@ -88,9 +88,11 @@
                     flat
                     color="green"
                     @click="details(props.row)"
-                    to="/detailviewcounter"
+               
                     icon="visibility"
                   ></q-btn>
+                
+
                 </q-td>
               </template>
             </q-table>
@@ -175,12 +177,15 @@
 import graphcounter from "@/pages/login/graphcounter.vue";
 import graphmonthcounter from "@/pages/login/graphmonthcounter.vue";
 
+
 export default {
   name: "counterpeople",
   components: {
     graphcounter,
     graphmonthcounter,
+  
   },
+  props: ['id'],
   data() {
     return {
       filter: "",
@@ -217,7 +222,7 @@ export default {
 
         { name: "completed", label: "Update At", field: "completed" },
         { name: "Location", label: "Location", field: "location" },
-        { name: "actions", label: "Actions", field: "", align: "center" },
+        { name: "actions", label: "Actions", field: "Action"}
       ],
       data: [],
 
@@ -231,6 +236,7 @@ export default {
       pagination: this.pagination,
       filter: undefined,
     });
+   
   },
 
   methods: {
@@ -401,8 +407,11 @@ export default {
     },
 
     details(props) {
-      console.log(props);
-      this.$store.dispatch("deviceammonia/successdata", props).then(() => {});
+     
+    
+      //  this.$store.dispatch("deviceammonia/successdata", props).then(() => {});
+    this.$router.push({ name: 'detailviewcounter', params: { id: props.id }})
+    
     },
     register_counter() {
       const iddeviceSelector = this.$refs.iddevice;

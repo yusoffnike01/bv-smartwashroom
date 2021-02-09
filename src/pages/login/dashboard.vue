@@ -18,7 +18,7 @@
         <div style="color:black">Admin</div>
             <div class="q-pa-md q-gutter-sm">
  
-    <q-btn color="Primary" icon-right="logout" label="Log Out" @click="logout" />
+    <!-- <q-btn color="Primary" icon-right="logout" label="Log Out" @click="logout" /> -->
 
     
   </div>
@@ -64,7 +64,7 @@
         </q-item>
       
 
-      <q-item  active-class="q-item-no-link-highlighting">
+      <q-item to="/help" active-class="q-item-no-link-highlighting" >
           <q-item-section avatar>
             <q-icon name="help" />
           </q-item-section>
@@ -73,6 +73,21 @@
             
           </q-item-section>
         </q-item>
+
+        
+      <q-item to="/help" active-class="q-item-no-link-highlighting" >
+          <q-item-section avatar>
+            <q-icon name="logout" />
+          </q-item-section>
+          <q-item-section>
+            <q-item-label @click="logout">Log Out</q-item-label>
+            
+          </q-item-section>
+        </q-item>
+
+        
+
+
       </q-list>
     </q-drawer>
  <q-page-container>

@@ -110,6 +110,34 @@
                   </template>
                 </q-input>
               </template>
+                      <template v-slot:body-cell-actions="props">
+                <q-td :props="props">
+                  <q-btn
+                    dense
+                    round
+                    flat
+                    color="blue"
+                    @click="editRow(props.row.id)"
+                    icon="edit"
+                  ></q-btn>
+                  <q-btn
+                    dense
+                    round
+                    flat
+                    color="red"
+                    @click="deleteRow(props.row.id)"
+                    icon="delete"
+                  ></q-btn>
+                 
+
+                </q-td>
+              </template>
+
+
+
+
+
+
             </q-table>
         
         </q-card-section>
@@ -248,6 +276,7 @@ export default {
         { name: "title", align: "center", label: "Name", field: "title" },
 
         { name: "completed", label: "Email", field: "completed" },
+         { name: "actions", label: "Actions", field: "Action"},
       ],
       data: [],
 
@@ -269,41 +298,44 @@ export default {
       const filter = props.filter;
 
       this.loading = true;
-      this.$store.dispatch("cleaner/display").then((response) => {
-        this.original = response.data;
-        console.log(response.data);
-        setTimeout(() => {
-          // update rowsCount with appropriate value
-          this.pagination.rowsNumber = this.getRowsNumberCount(filter);
+      this.$store.dispatch("cleaner/display")
+     .then((response) => {
+          this.original = response.data;
+          console.log(response.data);
+          setTimeout(() => {
+            // update rowsCount with appropriate value
+            this.pagination.rowsNumber = this.getRowsNumberCount(filter);
 
-          // get all rows if "All" (0) is selected
-          const fetchCount =
-            rowsPerPage === 0 ? this.pagination.rowsNumber : rowsPerPage;
+            // get all rows if "All" (0) is selected
+            const fetchCount =
+              rowsPerPage === 0 ? this.pagination.rowsNumber : rowsPerPage;
 
-          // calculate starting row of data
-          const startRow = (page - 1) * rowsPerPage;
+            // calculate starting row of data
+            const startRow = (page - 1) * rowsPerPage;
 
-          // fetch data from "server"
-          const returnedData = this.fetchFromServer(
-            startRow,
-            fetchCount,
-            filter,
-            sortBy,
-            descending
-          );
+            // fetch data from "server"
+            const returnedData = this.fetchFromServer(
+              startRow,
+              fetchCount,
+              filter,
+              sortBy,
+              descending
+            );
 
-          // clear out existing data and add new
-          this.data.splice(0, this.data.length, ...returnedData);
+            // clear out existing data and add new
+            this.data.splice(0, this.data.length, ...returnedData);
 
-          // don't forget to update local pagination object
-          this.pagination.page = page;
-          this.pagination.rowsPerPage = rowsPerPage;
-          this.pagination.sortBy = sortBy;
-          this.pagination.descending = descending;
+            // don't forget to update local pagination object
+            this.pagination.page = page;
+            this.pagination.rowsPerPage = rowsPerPage;
+            this.pagination.sortBy = sortBy;
+            this.pagination.descending = descending;
 
-          // ...and turn of loading indicator
-          this.loading = false;
-        }, 1500).catch((error) => {
+            // ...and turn of loading indicator
+            this.loading = false;
+          }, 1500);
+        })
+        .catch((error) => {
           this.$q.notify({
             message: error.response.data.error,
             color: "negative",
@@ -311,7 +343,6 @@ export default {
             position: "top",
           });
         });
-      });
 
       // emulate server
     },
@@ -400,6 +431,54 @@ export default {
 
      
     },
+
+
+
+      editRow(props) {
+      this.$store
+        .dispatch("cleaner/updatebyid", props)
+        .then(() => {
+          this.$q.notify({
+            message: "Register Successful",
+            color: "blue",
+            icon: "check_circle",
+            position: "top",
+          });
+        })
+        // error
+        .catch(() => {
+          this.$q.notify({
+            // error.response.data.error,
+            message: "PLEASE INSERT API FIRST... THANK YOU",
+            color: "negative",
+            icon: "error",
+            position: "top",
+          });
+        });
+    },
+    deleteRow(id) {
+      this.$store
+        .dispatch("cleaner/deletebyid", id)
+        .then(() => {
+          this.$q.notify({
+            message: "Register Successful",
+            color: "blue",
+            icon: "check_circle",
+            position: "top",
+          });
+        })
+        // error
+        .catch(() => {
+          this.$q.notify({
+            // error.response.data.error,
+            message: "PLEASE INSERT API FIRST... THANK YOU",
+            color: "negative",
+            icon: "error",
+            position: "top",
+          });
+        });
+    },
+
   },
 };
 </script>

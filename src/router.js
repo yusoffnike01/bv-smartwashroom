@@ -35,10 +35,17 @@ const router = new Router({
       component:()=> import('./pages/login/counterpeople.vue'),
     },
     {
-      path:'/detailviewcounter',
+      path:'/detailviewcounter/:id',
+      name: "detailviewcounter",
       component:()=> import('./pages/login/detailviewcounter.vue'),
-    }
+      
+    },
 
+    {
+      path:'/help',
+      component:()=> import('./pages/login/help.vue'),
+
+    }
 
   ]
 

@@ -74,7 +74,7 @@
     </div>
 
 
-
+prop
     </div>
 
 </template>
@@ -86,25 +86,25 @@
 <script>
 
 import graphcounterdetail from "@/pages/login/graphcounterdetail.vue";
-import { mapState } from 'vuex'
+// import { mapState } from 'vuex'
 export default {
     
     name:'detailviewcounter',
 
     data()
     {
+        
         return{
-            
-             data:
-             {
-                 id:''
-
-
-
-             }
-
+            show:false,
+            data:{
+                id:null
+            }
+             
+             
         }
     },
+
+ 
     components:{
 graphcounterdetail
     },
@@ -123,22 +123,40 @@ return this.data.id>=2 ? '#e61227':'#8681f6'
         
 
         },
+        getid()
+        {
+            return this.$route.params
+        }
 
 // got data from device ammonia module to data method
-        ...mapState({
-      getdata:state=>state.deviceammonia.data
+//         ...mapState({
+//       getdata:state=>state.deviceammonia.data
    
-        })
+//         })
        
+//     },
+//     mounted:function()
+//     {
+// if(this.getdata)
+// {
+//     this.data= this.getdata
+// }
+
+//     }
     },
+
     mounted:function()
     {
-if(this.getdata)
-{
-    this.data= this.getdata
-}
 
-    }
+if(this.getid)
+{
+    console.log('======'+this.getid)
+this.data=this.getid
+}
+else{
+    console.log('null')
+}
      
+    }
 }
 </script>
