@@ -52,7 +52,7 @@ const actions = {
 
           }
           commit("saveuser", data);
-          console.log(response)
+         
           resolve(response);
         })
         .catch((error) => {
