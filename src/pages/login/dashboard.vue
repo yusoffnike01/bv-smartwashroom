@@ -39,7 +39,7 @@
       <q-list>
         <q-item-label header>Dashboard </q-item-label>
        
-        <q-item to="/usermanagement" active-class="q-item-no-link-highlighting" v-if="this.isadmin">
+        <q-item to="/usermanagement" active-class="q-item-no-link-highlighting" v-if="isadmin">
           <q-item-section avatar>
             <q-icon name="account_circle" />
           </q-item-section>
@@ -80,7 +80,7 @@
         </q-item>
       
 
-      <q-item to="/help" active-class="q-item-no-link-highlighting" v-if="this.isadmin"  >
+      <q-item to="/help" active-class="q-item-no-link-highlighting" v-if="isadmin"  >
           <q-item-section avatar>
             <q-icon name="help" />
           </q-item-section>
@@ -122,7 +122,7 @@
 
 
 <script>
-import { mapGetters } from 'vuex'
+// import { mapGetters } from 'vuex'
 export default {
     name:'dashboard', //pagename
 
@@ -134,9 +134,14 @@ export default {
   },
 computed:
 {
-  ...mapGetters('auth',[
-      'isadmin'
-    ])
+  // ...mapGetters('auth',[
+  //     'isadmin'
+  //   ]),
+
+    isadmin:function()
+    {
+      return this.$store.getters['auth/isadmin']
+    }
 },
   methods:
   {
