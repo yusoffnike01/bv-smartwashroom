@@ -2,7 +2,7 @@
   <div class="q-pa-md">
     <!-- component to register cleaner -->
     <div class=" row justify-center">
-      <div  class="col-12 col-md-6" v-if="isadmin==hidden">
+      <div  class="col-12 col-md-6" v-if="this.isadmin">
         <q-card square flat bordered class="my-card q-ma-sm">
           <q-card-section>
             <h5>Register Form Cleaner</h5>
@@ -55,7 +55,7 @@
         </q-card>
       </div>
 
-      <div  class="col-12 col-md-6" v-if="isadmin==hidden">
+      <div  class="col-12 col-md-6" v-if="this.isadmin">
         <q-card square flat bordered class="my-card q-mt-sm">
           <q-card-section>
             <q-table
@@ -115,7 +115,7 @@
       </div>
     </div>
 
-    <div class="row" >
+    <div class="row" v-if="!this.isadmin">
       <div class="col-12 col-md-12">
         <q-card-section align="center">
           <q-img
@@ -217,7 +217,7 @@
       </div>
     </div>
 
-    <div class="row" v-if="isadmin==hidden">
+    <div class="row" v-if="this.isadmin">
       <div class="col-16 col-md-6">
         <q-card flat bordered class="my-card q-ma-sm" square>
           <q-card-section dark inset>
@@ -307,7 +307,7 @@
 
 <script>
 import isEmail from "validator/lib/isEmail";
-import { mapGetters } from "vuex";
+// import { mapGetters } from "vuex";
 export default {
   name: "usermanagement",
   data() {
@@ -320,7 +320,7 @@ export default {
       password: "",
       confirmationpass: "",
       update: false,
-   
+      isadmin:null,
 
       pagination: {
         sortBy: "name",
@@ -349,10 +349,14 @@ export default {
       original: [{}],
     };
   },
+ beforeCreate()
+ {
+   this.isadmin=this.$store.getters['auth/isadmin']
+ },
 
-  computed: {
-    ...mapGetters("auth", ["isadmin"]),
-  },
+  // computed: {
+  //   ...mapGetters("auth", ["isadmin"]),
+  // },
   mounted() {
     // get initial data from server (1st page)
     this.onRequest({

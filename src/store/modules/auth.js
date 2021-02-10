@@ -1,7 +1,7 @@
 import Axios from "axios";
 const state = () => ({
   token: localStorage.getItem("token") || "",
-  role_id:localStorage.getItem("role_id")||"",
+  role_id:localStorage.getItem("role_id"),
 
    
  

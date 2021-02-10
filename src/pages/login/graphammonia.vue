@@ -36,7 +36,7 @@
         <q-card flat bordered class="my-card q-ma-sm" square>
           <q-card-section>
             <div class="text-h6">The list device Ammonia Sensor</div>
-            <div class="text-subtitle2" v-if="isadmin==true">
+            <div class="text-subtitle2"  v-if="this.iscleaner" >
               Click Here to set level Ammonia
               <q-btn
                 dense
@@ -45,6 +45,7 @@
                 color="blue"
                 @click="update = true"
                 icon="sensors"
+                v-if="this.iscleaner"
               ></q-btn>
 
               <q-dialog v-model="update">
@@ -104,7 +105,7 @@
               <template v-slot:body-cell-actions="props">
                 <q-td :props="props">
                   <q-btn
-                    v-if="isadmin==true"
+                    v-if="this.isadmin"
                     dense
                     round
                     flat
@@ -113,7 +114,7 @@
                     icon="edit"
                   ></q-btn>
                   <q-btn
-                    v-if="isadmin==true"
+                    v-if="created"
                     dense
                     round
                     flat
@@ -140,7 +141,7 @@
         </q-card>
       </div>
 
-      <div v-if="isadmin==true" class="col-12 col-md-6">
+      <div v-if="this.iscleaner" class="col-12 col-md-6">
         <q-card
           flat
           bordered
@@ -198,7 +199,7 @@
 <script>
 import ammonia from "@/pages/login/ammonia.vue";
 import ammoniadevice from "@/pages/login/ammoniadevice.vue";
-import { mapGetters } from "vuex";
+// import { mapGetters } from "vuex";
 
 export default {
   name: "graphammonia",
@@ -215,6 +216,7 @@ export default {
       location: "",
       level: "",
       value: 61,
+      iscleaner:null,
       
 
       update: false,
@@ -257,9 +259,16 @@ export default {
     };
   },
 
-  computed: {
-    ...mapGetters("auth", ["isadmin"]),
-  },
+beforeCreate()
+{
+
+this.iscleaner=this.$store.getters['auth/isadmin']
+
+
+},
+  // computed: {
+  //   ...mapGetters("auth", ["isadmin"]),
+  // },
 
   mounted() {
     // get initial data from server (1st page)
@@ -278,7 +287,7 @@ export default {
       this.$store
         .dispatch("cleaner/display")
         .then((response) => {
-          if (this.isadmin==false) {
+          if (localStorage.getItem('role_id')==1) {
             (this.visibleColumns = [
               "User",
               "id",
@@ -294,6 +303,8 @@ export default {
                 "https://media.istockphoto.com/vectors/cleaning-service-clipart-cartoon-mascot-vector-id1141622428?k=6&m=1141622428&s=612x612&w=0&h=vsheP6t13AZfp3wJNOzD2jpLmonW0ne-fG-1APoo7Vk=",
               position: "top",
             });
+
+            
           } 
 
           this.original = response.data;

@@ -67,11 +67,12 @@
               <template v-slot:body-cell-actions="props">
                 <q-td :props="props">
                   <q-btn
-                    v-if="isadmin==hidden"
+                   
                     dense
                     round
                     flat
                     color="blue"
+                    v-if="isadmin"
                     @click="editRow(props.row.id)"
                     icon="edit"
                   >
@@ -79,11 +80,12 @@
          Click Now
         </q-tooltip></q-btn>
                   <q-btn
-                    v-if="isadmin==hidden"
+                  
                     dense
                     round
                     flat
                     color="red"
+                    v-if="isadmin"
                     @click="deleteRow(props.row.id)"
                     icon="delete"
                   >
@@ -98,6 +100,7 @@
                     round
                     flat
                     color="green"
+                    
                     @click="details(props.row)"
                     icon="visibility"
                     
@@ -125,7 +128,7 @@
         </q-card>
       </div>
 
-      <div v-if="isadmin==true" class="col-12 col-md-6">
+      <div v-if="this.isadmin" class="col-12 col-md-6">
         <q-card flat bordered class="my-card q-ma-sm" square>
           <q-card-section dark inset>
             <div class="text-h6">The Register Form Device's Door</div>
@@ -201,7 +204,6 @@
 <script>
 import graphcounter from "@/pages/login/graphcounter.vue";
 import graphmonthcounter from "@/pages/login/graphmonthcounter.vue";
-import { mapGetters } from "vuex";
 
 export default {
   name: "counterpeople",
@@ -218,6 +220,7 @@ export default {
       location: "",
       maxpeople: "",
       value: 61,
+      isadmin:null,
 
       update: false,
      
@@ -255,9 +258,12 @@ export default {
       original: [{}],
     };
   },
-  computed: {
-    ...mapGetters("auth", ["isadmin"]),
-  },
+   beforeCreate()
+ {
+   this.isadmin=this.$store.getters['auth/isadmin']
+    
+ },
+  
 
   mounted() {
     // get initial data from server (1st page)
@@ -265,6 +271,7 @@ export default {
       pagination: this.pagination,
       filter: undefined,
     });
+ 
   },
 
   methods: {
@@ -277,7 +284,7 @@ export default {
         .dispatch("cleaner/display")
         .then((response) => {
 
-if(this.isadmin==true)
+if(localStorage.getItem('role_id')==1)
 {
  
      this.$q.notify({
