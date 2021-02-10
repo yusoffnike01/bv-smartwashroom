@@ -5,6 +5,7 @@ import store from './store'
 import App from './App.vue'
 import './quasar'
 
+
 Vue.config.productionTip = false
 
 Vue.prototype.$http = Axios;
