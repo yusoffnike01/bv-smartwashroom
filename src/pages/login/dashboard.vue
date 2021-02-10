@@ -20,7 +20,7 @@
         <div style="color:black">Cleaner1</div>
             <div class="q-pa-md q-gutter-sm">
  
-    <q-btn color="Primary" icon-right="logout" label="Log Out" @click="logout" />
+    <!-- <q-btn color="Primary" icon-right="logout" label="Log Out" @click="logout" /> -->
 
     
   </div>
@@ -39,7 +39,7 @@
       <q-list>
         <q-item-label header>Dashboard </q-item-label>
        
-        <q-item to="/usermanagement" active-class="q-item-no-link-highlighting" v-if="isadmin">
+        <q-item to="/usermanagement" active-class="q-item-no-link-highlighting" v-if="this.isadmin">
           <q-item-section avatar>
             <q-icon name="account_circle" />
           </q-item-section>
@@ -91,7 +91,7 @@
         </q-item>
 
         
-      <!-- <q-item to="#" active-class="q-item-no-link-highlighting" >
+      <q-item to="#" active-class="q-item-no-link-highlighting" >
           <q-item-section avatar>
             <q-icon name="logout" />
           </q-item-section>
@@ -99,7 +99,7 @@
             <q-item-label @click="logout">Log Out</q-item-label>
             
           </q-item-section>
-        </q-item> -->
+        </q-item>
 
       
 
