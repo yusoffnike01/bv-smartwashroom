@@ -36,7 +36,7 @@
         <q-card flat bordered class="my-card q-ma-sm" square>
           <q-card-section>
             <div class="text-h6">The list device Ammonia Sensor</div>
-            <div class="text-subtitle2" v-if="this.isadmin">
+            <div class="text-subtitle2" v-if="isadmin==hidden">
               Click Here to set level Ammonia
               <q-btn
                 dense
@@ -104,7 +104,7 @@
               <template v-slot:body-cell-actions="props">
                 <q-td :props="props">
                   <q-btn
-                    v-if="this.isadmin"
+                    v-if="isadmin==hidden"
                     dense
                     round
                     flat
@@ -113,7 +113,7 @@
                     icon="edit"
                   ></q-btn>
                   <q-btn
-                    v-if="this.isadmin"
+                    v-if="isadmin==hidden"
                     dense
                     round
                     flat
@@ -146,7 +146,7 @@
         </q-card>
       </div>
 
-      <div v-if="this.isadmin" class="col-12 col-md-6">
+      <div v-if="isadmin==hidden" class="col-12 col-md-6">
         <q-card
           flat
           bordered

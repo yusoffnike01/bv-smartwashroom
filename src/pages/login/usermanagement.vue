@@ -2,7 +2,7 @@
   <div class="q-pa-md">
     <!-- component to register cleaner -->
     <div class=" row justify-center">
-      <div  class="col-12 col-md-6" v-if="this.isadmin">
+      <div  class="col-12 col-md-6" v-if="isadmin==hidden">
         <q-card square flat bordered class="my-card q-ma-sm">
           <q-card-section>
             <h5>Register Form Cleaner</h5>
@@ -55,7 +55,7 @@
         </q-card>
       </div>
 
-      <div  class="col-12 col-md-6" v-if="this.isadmin">
+      <div  class="col-12 col-md-6" v-if="isadmin==hidden">
         <q-card square flat bordered class="my-card q-mt-sm">
           <q-card-section>
             <q-table
@@ -216,7 +216,7 @@
       </div>
     </div>
 
-    <div class="row" v-if="this.isadmin">
+    <div class="row" v-if="isadmin==hidden">
       <div class="col-16 col-md-6">
         <q-card flat bordered class="my-card q-ma-sm" square>
           <q-card-section dark inset>
