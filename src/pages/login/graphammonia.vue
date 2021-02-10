@@ -221,6 +221,7 @@ export default {
       location: "",
       level: "",
       value: 61,
+      hidden:true,
 
       update: false,
 
@@ -283,7 +284,7 @@ export default {
       this.$store
         .dispatch("cleaner/display")
         .then((response) => {
-          if (!this.isadmin) {
+          if (this.isadmin==false) {
             (this.visibleColumns = [
               "User",
               "id",
@@ -291,7 +292,7 @@ export default {
               "completed",
               "location",
             ]),
-              console.log("masuk");
+              
             this.$q.notify({
               message: "Please Clean Up Device 1",
               color: "blue",
@@ -299,9 +300,7 @@ export default {
                 "https://media.istockphoto.com/vectors/cleaning-service-clipart-cartoon-mascot-vector-id1141622428?k=6&m=1141622428&s=612x612&w=0&h=vsheP6t13AZfp3wJNOzD2jpLmonW0ne-fG-1APoo7Vk=",
               position: "top",
             });
-          } else {
-            console.log("x masuk");
-          }
+          } 
 
           this.original = response.data;
 

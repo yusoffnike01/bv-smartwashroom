@@ -39,7 +39,7 @@
       <q-list>
         <q-item-label header>Dashboard </q-item-label>
        
-        <q-item to="/usermanagement" active-class="q-item-no-link-highlighting" v-if="isadmin==hidden">
+        <q-item to="/usermanagement" active-class="q-item-no-link-highlighting" v-if="'isadmin'==hidden">
           <q-item-section avatar>
             <q-icon name="account_circle" />
           </q-item-section>
@@ -80,7 +80,7 @@
         </q-item>
       
 
-      <q-item to="/help" active-class="q-item-no-link-highlighting" v-if="isadmin==hidden"  >
+      <q-item to="/help" active-class="q-item-no-link-highlighting" v-if="'isadmin'==hidden"  >
           <q-item-section avatar>
             <q-icon name="help" />
           </q-item-section>
@@ -91,12 +91,12 @@
         </q-item>
 
         
-      <q-item to="#" active-class="q-item-no-link-highlighting" >
+      <q-item  to="#" @click="logout" active-class="q-item-no-link-highlighting" >
           <q-item-section avatar>
             <q-icon name="logout" />
           </q-item-section>
           <q-item-section>
-            <q-item-label @click="logout">Log Out</q-item-label>
+            <q-item-label>Log Out</q-item-label>
             
           </q-item-section>
         </q-item>
@@ -129,7 +129,8 @@ export default {
 
      data () {
     return {
-      leftDrawerOpen: false
+      leftDrawerOpen: false,
+      hidden:true
     }
   },
 computed:

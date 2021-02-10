@@ -319,6 +319,7 @@ export default {
       password: "",
       confirmationpass: "",
       update: false,
+      hidden:true,
 
       pagination: {
         sortBy: "name",

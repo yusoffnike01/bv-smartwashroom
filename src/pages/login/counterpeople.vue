@@ -212,6 +212,7 @@ export default {
       value: 61,
 
       update: false,
+      hidden:true,
 
       pagination: {
         sortBy: "name",
@@ -268,9 +269,9 @@ export default {
         .dispatch("cleaner/display")
         .then((response) => {
 
-if(!this.isadmin)
+if(this.isadmin==false)
 {
-  console.log('masuk')
+ 
      this.$q.notify({
         message: 'Please Clean Up Device 1',
         color: 'blue',
@@ -278,9 +279,7 @@ if(!this.isadmin)
        position: "top",
      })
 }
-else{
-  console.log('x masuk')
-}
+
 
       
           this.original = response.data;
