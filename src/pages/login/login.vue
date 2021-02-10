@@ -151,4 +151,9 @@ export default {
 
   width: 120%;
 }
+
+.background
+{
+ background-color: #d8dce3;
+}
 </style>

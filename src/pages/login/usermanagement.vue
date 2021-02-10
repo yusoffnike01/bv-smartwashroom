@@ -137,6 +137,7 @@
                 outline
                 style="margin-top:2%"
               >
+             
                 <tr class="text-h6">
                   <td>ID:</td>
                   <td>S4675</td>
@@ -319,7 +320,7 @@ export default {
       password: "",
       confirmationpass: "",
       update: false,
-      hidden:true,
+   
 
       pagination: {
         sortBy: "name",

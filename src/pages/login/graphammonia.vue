@@ -36,7 +36,7 @@
         <q-card flat bordered class="my-card q-ma-sm" square>
           <q-card-section>
             <div class="text-h6">The list device Ammonia Sensor</div>
-            <div class="text-subtitle2" v-if="isadmin==hidden">
+            <div class="text-subtitle2" v-if="isadmin==true">
               Click Here to set level Ammonia
               <q-btn
                 dense
@@ -104,7 +104,7 @@
               <template v-slot:body-cell-actions="props">
                 <q-td :props="props">
                   <q-btn
-                    v-if="isadmin==hidden"
+                    v-if="isadmin==true"
                     dense
                     round
                     flat
@@ -113,7 +113,7 @@
                     icon="edit"
                   ></q-btn>
                   <q-btn
-                    v-if="isadmin==hidden"
+                    v-if="isadmin==true"
                     dense
                     round
                     flat
@@ -125,19 +125,13 @@
               </template>
               <template v-slot:no-data="{}">
                 <div class="full-width row flex-center text-blue q-gutter-sm">
-                  <q-circular-progress
-                    indeterminate
-                    :angle="270"
-                    :value="value"
-                    size="20px"
-                    :thickness="0.22"
-                    color="light-blue"
-                    track-color="grey-3"
-                    class="q-ma-md"
-                  />
+                   <q-spinner
+        color="primary"
+        size="3em"
+      />
 
                   <span> Loading.. </span>
-                  <q-icon size="2em" />
+              
                 </div>
               </template>
             </q-table>
@@ -146,7 +140,7 @@
         </q-card>
       </div>
 
-      <div v-if="isadmin==hidden" class="col-12 col-md-6">
+      <div v-if="isadmin==true" class="col-12 col-md-6">
         <q-card
           flat
           bordered
@@ -190,7 +184,7 @@
               </div>
             </div>
 
-            <!-- <br><br><br><br><br><br> -->
+     
           </q-card-section>
         </q-card>
       </div>
@@ -221,7 +215,7 @@ export default {
       location: "",
       level: "",
       value: 61,
-      hidden:true,
+      
 
       update: false,
 
@@ -416,7 +410,7 @@ export default {
               position: "top",
             });
           });
-        console.log(data);
+       
       }
     },
 

@@ -74,7 +74,10 @@
                     color="blue"
                     @click="editRow(props.row.id)"
                     icon="edit"
-                  ></q-btn>
+                  >
+                   <q-tooltip content-class="bg-blue" :offset="[10, 10]">
+         Click Now
+        </q-tooltip></q-btn>
                   <q-btn
                     v-if="isadmin==hidden"
                     dense
@@ -83,7 +86,13 @@
                     color="red"
                     @click="deleteRow(props.row.id)"
                     icon="delete"
-                  ></q-btn>
+                  >
+                  
+                   <q-tooltip content-class="bg-red" :offset="[10, 10]">
+         Click Now
+        </q-tooltip>
+                  
+                  </q-btn>
                   <q-btn
                     dense
                     round
@@ -91,25 +100,24 @@
                     color="green"
                     @click="details(props.row)"
                     icon="visibility"
-                  ></q-btn>
+                    
+                  >
+                   <q-tooltip content-class="bg-green" :offset="[10, 10]">
+         Click Now
+        </q-tooltip>
+                  
+                  </q-btn>
                 </q-td>
               </template>
 
               <template v-slot:no-data="{}">
                 <div class="full-width row flex-center text-blue q-gutter-sm">
-                  <q-circular-progress
-                    indeterminate
-                    :angle="270"
-                    :value="value"
-                    size="20px"
-                    :thickness="0.22"
-                    color="light-blue"
-                    track-color="grey-3"
-                    class="q-ma-md"
-                  />
-
+                  <q-spinner
+        color="primary"
+        size="3em"
+      />
                   <span> Loading.. </span>
-                  <q-icon size="2em" />
+            
                 </div>
               </template>
             </q-table>
@@ -117,7 +125,7 @@
         </q-card>
       </div>
 
-      <div v-if="isadmin==hidden" class="col-12 col-md-6">
+      <div v-if="isadmin==true" class="col-12 col-md-6">
         <q-card flat bordered class="my-card q-ma-sm" square>
           <q-card-section dark inset>
             <div class="text-h6">The Register Form Device's Door</div>
@@ -212,7 +220,7 @@ export default {
       value: 61,
 
       update: false,
-      hidden:true,
+     
 
       pagination: {
         sortBy: "name",
@@ -269,7 +277,7 @@ export default {
         .dispatch("cleaner/display")
         .then((response) => {
 
-if(this.isadmin==false)
+if(this.isadmin==true)
 {
  
      this.$q.notify({
