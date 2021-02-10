@@ -201,17 +201,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
 <script>
 import ammonia from "@/pages/login/ammonia.vue";
 import ammoniadevice from "@/pages/login/ammoniadevice.vue";
@@ -394,7 +383,7 @@ export default {
       });
       return count;
     },
-
+// register device ammonia 
     register_ammonia() {
       const iddeviceSelector = this.$refs.iddevice;
       const locationSelector = this.$refs.location;
@@ -432,6 +421,7 @@ export default {
       }
     },
 
+// method edit row table ammonia
     editRow(props) {
       this.$store
         .dispatch("cleaner/updatebyid", props)
@@ -454,6 +444,9 @@ export default {
           });
         });
     },
+
+// method delete  row table ammonia
+
     deleteRow(id) {
       this.$store
         .dispatch("cleaner/deletebyid", id)

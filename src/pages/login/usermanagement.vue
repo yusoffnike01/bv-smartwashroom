@@ -522,6 +522,7 @@ export default {
           });
         });
     },
+    // method delete row id
     deleteRow(id) {
       this.$store
         .dispatch("cleaner/deletebyid", id)
@@ -545,6 +546,7 @@ export default {
         });
     },
 
+// update pasword user
     updatepassword() {
       this.update = false;
     },
