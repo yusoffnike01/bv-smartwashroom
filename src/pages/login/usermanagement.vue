@@ -1,90 +1,63 @@
 <template>
- <div class="q-pa-md">
+  <div class="q-pa-md">
+    <!-- component to register cleaner -->
+    <div class=" row justify-center">
+      <div v-if="isadmin" class="col-12 col-md-6">
+        <q-card square flat bordered class="my-card q-ma-sm">
+          <q-card-section>
+            <h5>Register Form Cleaner</h5>
 
-  <div class=" row justify-center">
-      
+            <q-input
+              ref="username"
+              v-model="username"
+              label="username"
+              placeholder=""
+              hint=""
+              :rules="[(val) => !!val || 'Please fill username cleaner ']"
+            />
 
-      
-      <div class="col-12 col-md-6">
-          <q-card square flat bordered class="my-card q-ma-sm" >
-        <q-card-section>
-          <h5>Register Form Cleaner</h5>
+            <q-input
+              ref="name"
+              v-model="name"
+              label="name"
+              placeholder=""
+              hint=""
+              :rules="[(val) => !!val || 'Please fill username cleaner ']"
+            />
 
- <q-input
-                ref="username"
-                v-model="username"
-                label="username"
-                placeholder=""
-                hint=""
-                :rules="[(val) => !!val || 'Please fill username cleaner ']"
-              />
-          
-         
-          
-           
-              <q-input
-                ref="name"
-                v-model="name"
-                label="name"
-                placeholder=""
-                hint=""
-                :rules="[(val) => !!val || 'Please fill username cleaner ']"
-              />
+            <q-input
+              ref="email"
+              v-model="email"
+              label="email"
+              placeholder="Enter cleaner's Email"
+              hint=""
+              :rules="[
+                (val) => !!val || 'Please Enter Your Email',
+                (val) => this.validationEmail(val) || 'Error Format',
+              ]"
+            />
 
-         
-              <q-input
-                ref="email"
-                v-model="email"
-                label="email"
-                placeholder="Enter cleaner's Email"
-                hint=""
-                :rules="[
-                  (val) => !!val || 'Please Enter Your Email',
-                  (val) => this.validationEmail(val) || 'Error Format',
-                ]"
-              />
-        
+            <q-input
+              ref="password"
+              v-model="password"
+              label="password"
+              placeholder="Enter your Password"
+              hint=""
+              :rules="[(val) => !!val || 'Please Enter Your Password']"
+            />
+          </q-card-section>
 
-         
-              <q-input
-                ref="password"
-                v-model="password"
-                label="password"
-                placeholder="Enter your Password"
-                hint=""
-                :rules="[(val) => !!val || 'Please Enter Your Password']"
-              />
-
-        </q-card-section>
-
-      
-            
-             
-      
-
-        <q-card-section >
-          <div class="q-pa-md q-gutter-sm">
-            <q-btn color="primary" label="Register" @click="register" />
-          </div>
-        </q-card-section>
-      </q-card>
+          <q-card-section>
+            <div class="q-pa-md q-gutter-sm">
+              <q-btn color="primary" label="Register" @click="register" />
+            </div>
+          </q-card-section>
+        </q-card>
       </div>
 
-
-
-
-
-
-
-
-
-
-      <div class=" col-12 col-md-6">
-         <q-card  square flat bordered class="my-card q-mt-sm"> 
-        
-
-        <q-card-section>
-        
+      <div v-if="isadmin" class="col-12 col-md-6">
+        <q-card square flat bordered class="my-card q-mt-sm">
+          <q-card-section>
             <q-table
               title="Table"
               :data="data"
@@ -110,7 +83,7 @@
                   </template>
                 </q-input>
               </template>
-                      <template v-slot:body-cell-actions="props">
+              <template v-slot:body-cell-actions="props">
                 <q-td :props="props">
                   <q-btn
                     dense
@@ -128,121 +101,212 @@
                     @click="deleteRow(props.row.id)"
                     icon="delete"
                   ></q-btn>
-                 
-
                 </q-td>
               </template>
 
-
-
-
-
-
+              <center>
+                <div class="text-h6">
+                  lkll
+                </div>
+              </center>
             </q-table>
-        
-        </q-card-section>
-      </q-card>
-      </div>
-   
-    </div>
-
-
-
-    <div class="row">
-      <div class="col-12 col-md-6">
-            <q-card flat bordered class="my-card q-ma-sm" square>
-
-  <q-card-section dark inset>
-
- <div class="text-h6">Profile Admin</div>
-          <div class="text-subtitle2">
-           
-          </div>
-
- <table class="positionadmin">
-        <tr>
-          <td>ID:</td>
-          <td>S4675</td>
-        </tr>
-        <tr>
-          <td>Name:</td>
-          <td>Aiman Hakim</td>
-        </tr>
-        <tr>
-          <td>Email:</td>
-          <td>yusoff@gmail.com</td>
-        </tr>
-        <tr></tr>
-
-        <tr>
-          <td>Last Login :</td>
-          <td>-----</td>
-        </tr>
-        <tr>
-          <td>
-            <div class="q-pa-md q-gutter-sm">
-              <q-btn label="Update" color="primary" @click="update = true" />
-
-              <q-dialog v-model="update">
-                <q-card style="width: 700px; max-width: 80vw">
-                  <q-card-section>
-                    <div class="text-h6">Update Password</div>
-                  </q-card-section>
-
-                  <q-card-section class="q-pt-none">
-                    <q-input
-                      outlined
-                      ref="password"
-                      v-model="password"
-                      label="password"
-                      placeholder="Enter your  Password"
-                      hint=""
-                      :rules="[(val) => !!val || 'Please Enter Your Password']"
-                    />
-                  </q-card-section>
-
-                  <q-card-section>
-                    <q-input
-                      outlined
-                      ref="confirmationpass"
-                      v-model="confirmationpass"
-                      label="password"
-                      placeholder="Enter your Confirmation Password"
-                      hint=""
-                      :rules="[(val) => !!val || 'Please Enter Your Password']"
-                    />
-                  </q-card-section>
-
-                  <q-card-actions align="right" class="bg-white text-teal">
-                    <q-btn flat label="OK" v-close-popup />
-                  </q-card-actions>
-                </q-card>
-              </q-dialog>
-            </div>
-          </td>
-        </tr>
-      </table>
-  </q-card-section>
-
-
+          </q-card-section>
         </q-card>
       </div>
-
-
-
-
-
-    
     </div>
 
+    <div class="row">
+      <div class="col-12 col-md-12">
+        <q-card-section align="center">
+          <q-img
+            class="flex-self-end profile-photo circle-border dangling-bottom"
+            :src="require('@/image/profile.png')"
+            spinner-color="black"
+            style="width: 200px"
+          />
+        </q-card-section>
+
+        <q-card flat class="my-card q-ma-sm" square>
+          <q-card-section dark inset>
+            <div class="text-h4" align="center">Profile Cleaner1</div>
+            <div class="text-subtitle2"></div>
+            <div class="d-flex flex-justify-center mb-5" border>
+              <table
+                class="positionadmin"
+                align="center"
+                outline
+                style="margin-top:2%"
+              >
+                <tr class="text-h6">
+                  <td>ID:</td>
+                  <td>S4675</td>
+                </tr>
+                <tr class="text-h6">
+                  <td>Name:</td>
+                  <td>Tengku Yusoff Bin Tengku Ibrahim Shukrillah</td>
+                </tr>
+                <tr class="text-h6">
+                  <td>Email:</td>
+                  <td>yusoff@gmail.com</td>
+                </tr>
+                <tr></tr>
+
+                <tr class="text-h6">
+                  <td>Last Login :</td>
+                  <td>-----</td>
+                </tr>
+                <tr>
+                  <td>
+                    <div class="q-pa-md q-gutter-sm">
+                      <q-btn
+                        label="Update"
+                        color="primary"
+                        @click="update = true"
+                      />
+
+                      <q-dialog v-model="update">
+                        <q-card style="width: 700px; max-width: 80vw">
+                          <q-card-section>
+                            <div class="text-h6">Update Password</div>
+                          </q-card-section>
+
+                          <q-card-section class="q-pt-none">
+                            <q-input
+                              outlined
+                              ref="password"
+                              v-model="password"
+                              label="password"
+                              placeholder="Enter your  Password"
+                              hint=""
+                              :rules="[
+                                (val) => !!val || 'Please Enter Your Password',
+                              ]"
+                            />
+                          </q-card-section>
+
+                          <q-card-section>
+                            <q-input
+                              outlined
+                              ref="confirmationpass"
+                              v-model="confirmationpass"
+                              label="password"
+                              placeholder="Enter your Confirmation Password"
+                              hint=""
+                              :rules="[
+                                (val) => !!val || 'Please Enter Your Password',
+                              ]"
+                            />
+                          </q-card-section>
+
+                          <q-card-actions
+                            align="right"
+                            class="bg-white text-teal"
+                          >
+                            <q-btn flat label="OK" @click="updatepassword" />
+                          </q-card-actions>
+                        </q-card>
+                      </q-dialog>
+                    </div>
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </q-card-section>
+        </q-card>
+      </div>
+    </div>
+
+    <div class="row" v-if="isadmin">
+      <div class="col-16 col-md-6">
+        <q-card flat bordered class="my-card q-ma-sm" square>
+          <q-card-section dark inset>
+            <div class="text-h6">Profile Admin</div>
+            <div class="text-subtitle2"></div>
+
+            <table class="positionadmin">
+              <tr>
+                <td>ID:</td>
+                <td>S4675</td>
+              </tr>
+              <tr>
+                <td>Name:</td>
+                <td>Aiman Hakim</td>
+              </tr>
+              <tr>
+                <td>Email:</td>
+                <td>yusoff@gmail.com</td>
+              </tr>
+              <tr></tr>
+
+              <tr>
+                <td>Last Login :</td>
+                <td>-----</td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="q-pa-md q-gutter-sm">
+                    <q-btn
+                      label="Update"
+                      color="primary"
+                      @click="update = true"
+                    />
+
+                    <q-dialog v-model="update">
+                      <q-card style="width: 700px; max-width: 80vw">
+                        <q-card-section>
+                          <div class="text-h6">Update Password</div>
+                        </q-card-section>
+
+                        <q-card-section class="q-pt-none">
+                          <q-input
+                            outlined
+                            ref="password"
+                            v-model="password"
+                            label="password"
+                            placeholder="Enter your  Password"
+                            hint=""
+                            :rules="[
+                              (val) => !!val || 'Please Enter Your Password',
+                            ]"
+                          />
+                        </q-card-section>
+
+                        <q-card-section>
+                          <q-input
+                            outlined
+                            ref="confirmationpass"
+                            v-model="confirmationpass"
+                            label="password"
+                            placeholder="Enter your Confirmation Password"
+                            hint=""
+                            :rules="[
+                              (val) => !!val || 'Please Enter Your Password',
+                            ]"
+                          />
+                        </q-card-section>
+
+                        <q-card-actions
+                          align="right"
+                          class="bg-white text-teal"
+                        >
+                          <q-btn flat label="OK" v-close-popup />
+                        </q-card-actions>
+                      </q-card>
+                    </q-dialog>
+                  </div>
+                </td>
+              </tr>
+            </table>
+          </q-card-section>
+        </q-card>
+      </div>
+    </div>
   </div>
 </template>
 
-
-
 <script>
 import isEmail from "validator/lib/isEmail";
-
+import { mapGetters } from "vuex";
 export default {
   name: "usermanagement",
   data() {
@@ -276,7 +340,7 @@ export default {
         { name: "title", align: "center", label: "Name", field: "title" },
 
         { name: "completed", label: "Email", field: "completed" },
-         { name: "actions", label: "Actions", field: "Action"},
+        { name: "actions", label: "Actions", field: "Action" },
       ],
       data: [],
 
@@ -284,6 +348,9 @@ export default {
     };
   },
 
+  computed: {
+    ...mapGetters("auth", ["isadmin"]),
+  },
   mounted() {
     // get initial data from server (1st page)
     this.onRequest({
@@ -298,10 +365,11 @@ export default {
       const filter = props.filter;
 
       this.loading = true;
-      this.$store.dispatch("cleaner/display")
-     .then((response) => {
+      this.$store
+        .dispatch("cleaner/display")
+        .then((response) => {
           this.original = response.data;
-          console.log(response.data);
+
           setTimeout(() => {
             // update rowsCount with appropriate value
             this.pagination.rowsNumber = this.getRowsNumberCount(filter);
@@ -384,57 +452,55 @@ export default {
       return isEmail(value);
     },
     register() {
+      const usernameSelector = this.$refs.username;
+      const nameSelector = this.$refs.name;
+      const emailSelector = this.$refs.email;
+      const passwordSelector = this.$refs.password;
+      usernameSelector.validate();
+      nameSelector.validate();
+      emailSelector.validate();
+      passwordSelector.validate();
 
-  const usernameSelector = this.$refs.username;
-  const nameSelector = this.$refs.name;
-  const emailSelector = this.$refs.email;
-   const passwordSelector = this.$refs.password;
- usernameSelector.validate();
- nameSelector.validate();
- emailSelector.validate();
-  passwordSelector.validate();
+      if (
+        usernameSelector.hasError ||
+        nameSelector.hasError ||
+        emailSelector.hasError ||
+        passwordSelector.hasError
+      )
+        return;
+      else {
+        let data = {
+          username: this.username,
+          name: this.name,
+          email: this.email,
+          password: this.password,
+        };
 
-   if (usernameSelector.hasError || nameSelector.hasError||emailSelector.hasError||passwordSelector.hasError) return;
-      else{
+        this.$store
+          .dispatch("cleaner/insertdata", data)
 
- let data = {
-        username: this.username,
-        name: this.name,
-        email: this.email,
-        password: this.password,
-      };
+          .then(() => {
+            this.$q.notify({
+              message: "Register Successful",
+              color: "blue",
+              icon: "check_circle",
+              position: "top",
+            });
+          })
 
-      this.$store
-        .dispatch("cleaner/insertdata", data)
-
-        .then(() => {
-          this.$q.notify({
-            message: "Register Successful",
-            color: "blue",
-            icon: "check_circle",
-            position: "top",
+          .catch((error) => {
+            this.$q.notify({
+              // error.response.data.error,
+              message: error.response.data.error,
+              color: "negative",
+              icon: "error",
+              position: "top",
+            });
           });
-        })
-
-        .catch((error) => {
-          this.$q.notify({
-            // error.response.data.error,
-            message: error.response.data.error,
-            color: "negative",
-            icon: "error",
-            position: "top",
-          });
-        });
-      console.log(data);
       }
-
-
-     
     },
 
-
-
-      editRow(props) {
+    editRow(props) {
       this.$store
         .dispatch("cleaner/updatebyid", props)
         .then(() => {
@@ -479,7 +545,9 @@ export default {
         });
     },
 
+    updatepassword() {
+      this.update = false;
+    },
   },
 };
 </script>
-

@@ -1,4 +1,6 @@
 <template>
+
+<!-- Page guide admin to register device  and how to use this system -->
     <div class="q-pa-md">
  <div class="row justify-center">
  <div class="col-12 col-md-12">

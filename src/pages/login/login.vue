@@ -1,78 +1,76 @@
 <template>
-<q-layout class="background"  > 
-
-  <q-page class="flex flex-center">
-    <q-card style="width: 350px">
-      <q-card-section align="center">
-        <q-img
-          :src="require('@/image/klcc.png')"
-          spinner-color="black"
-          style="width: 200px"
-        />
-      </q-card-section>
-
-      <q-bar style="bg-white">
-        <!-- <q-icon name="eva-save"> -->
-
+  <!-- page for login admin and cleaner -->
+  <q-layout class="background">
+    <q-page class="flex flex-center">
+      <q-card style="width: 350px">
         <q-card-section align="center">
-          <div class="position">Petronas Twin Towers Smart Washroom</div>
+          <q-img
+            :src="require('@/image/klcc.png')"
+            spinner-color="black"
+            style="width: 200px"
+          />
         </q-card-section>
 
-        <q-space />
+        <q-bar style="bg-white">
+          <!-- <q-icon name="eva-save"> -->
 
-        <q-btn
-          dense
-          flat
-          icon="eva-close-outline"
-          @click="showDialog = !showDialog"
-        >
-          <q-tooltip>Close</q-tooltip>
-        </q-btn>
-      </q-bar>
+          <q-card-section align="center">
+            <div class="position">Petronas Twin Towers Smart Washroom</div>
+          </q-card-section>
 
-      <q-card-section>
-        <q-input
-          outlined
-          ref="email"
-          v-model="email"
-          label="email"
-          placeholder="Enter your Email"
-          hint=""
-          :rules="[
-            (val) => !!val || 'Please Enter Your Email',
-            (val) => this.validationEmail(val) || 'Error Format',
-          ]"
-        />
-      </q-card-section>
+          <q-space />
 
-      <q-card-section>
+          <q-btn
+            dense
+            flat
+            icon="eva-close-outline"
+            @click="showDialog = !showDialog"
+          >
+            <q-tooltip>Close</q-tooltip>
+          </q-btn>
+        </q-bar>
 
-        
-        <q-input
-          outlined
-          ref="password"
-          v-model="password"
-        filled type="password"
-          label="password"
-          placeholder="Enter your Password"
-          hint=""
-          
-          :rules="[(val) => !!val || 'Please Enter Your Password']"
-        />
-      </q-card-section>
+        <q-card-section>
+          <q-input
+            outlined
+            ref="email"
+            v-model="email"
+            label="email"
+            placeholder="Enter your Email"
+            hint=""
+            :rules="[
+              (val) => !!val || 'Please Enter Your Email',
+              (val) => this.validationEmail(val) || 'Error Format',
+            ]"
+          />
+        </q-card-section>
 
-      <q-card-section>
-        <q-btn
-          push
-          color="primary"
-          label="login"
-          class="full-width"
-          size="lg"
-          @click="login"
-        />
-      </q-card-section>
-    </q-card>
-  </q-page>
+        <q-card-section>
+          <q-input
+            outlined
+            ref="password"
+            v-model="password"
+            filled
+            type="password"
+            label="password"
+            placeholder="Enter your Password"
+            hint=""
+            :rules="[(val) => !!val || 'Please Enter Your Password']"
+          />
+        </q-card-section>
+
+        <q-card-section>
+          <q-btn
+            push
+            color="primary"
+            label="login"
+            class="full-width"
+            size="lg"
+            @click="login"
+          />
+        </q-card-section>
+      </q-card>
+    </q-page>
   </q-layout>
   <!-- <router-view/>          -->
 </template>
@@ -82,18 +80,17 @@ import isEmail from "validator/lib/isEmail";
 
 export default {
   name: "login", //pagename
- 
+// detect token in localstorage
 
-beforeRouteEnter(to, from, next) {
+  beforeRouteEnter(to, from, next) {
     // if(localstroage.getitem('islogger')==true)
-		if(localStorage.getItem('token') ){
-        
-			next('/')
-			return
-		} else {
-			next()
-		}
-	},
+    if (localStorage.getItem("token")) {
+      next("/");
+      return;
+    } else {
+      next();
+    }
+  },
 
   data() {
     return {
@@ -102,10 +99,11 @@ beforeRouteEnter(to, from, next) {
     };
   },
   methods: {
+    // verify email first
     validationEmail(value) {
       return isEmail(value);
     },
-
+// detect email or password if correct got next page.. if not, back page
     login() {
       const emailSelector = this.$refs.email;
       const passwordSelector = this.$refs.password;
@@ -153,6 +151,4 @@ beforeRouteEnter(to, from, next) {
 
   width: 120%;
 }
-
-
 </style>

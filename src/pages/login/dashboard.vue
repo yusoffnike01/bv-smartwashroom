@@ -14,8 +14,10 @@
         <q-toolbar-title style="color:black">
           Smart Washroom
         </q-toolbar-title>
-
-        <div style="color:black">Admin</div>
+<div class="q-pa-md">
+    
+  </div>
+        <div style="color:black">Cleaner1</div>
             <div class="q-pa-md q-gutter-sm">
  
     <!-- <q-btn color="Primary" icon-right="logout" label="Log Out" @click="logout" /> -->
@@ -24,6 +26,7 @@
   </div>
      
       </q-toolbar>
+      
     </q-header>Developer
 
     <q-drawer
@@ -32,10 +35,11 @@
       bordered
       content-class="bg-grey-2"
     >
+    
       <q-list>
         <q-item-label header>Dashboard </q-item-label>
        
-        <q-item to="/usermanagement" active-class="q-item-no-link-highlighting" >
+        <q-item to="/usermanagement" active-class="q-item-no-link-highlighting" v-if="isadmin">
           <q-item-section avatar>
             <q-icon name="account_circle" />
           </q-item-section>
@@ -44,6 +48,18 @@
           
           </q-item-section>
         </q-item>
+
+ <q-item to="/usermanagement" active-class="q-item-no-link-highlighting" >
+          <q-item-section avatar>
+            <q-icon name="account_circle" />
+          </q-item-section>
+          <q-item-section>
+            <q-item-label>Profile </q-item-label>
+          
+          </q-item-section>
+        </q-item>
+
+
         <q-item clickable  to="/graphammonia" active-class="q-item-no-link-highlighting">
           <q-item-section avatar>
             <q-icon name="perm_device_information" />
@@ -64,7 +80,7 @@
         </q-item>
       
 
-      <q-item to="/help" active-class="q-item-no-link-highlighting" >
+      <q-item to="/help" active-class="q-item-no-link-highlighting" v-if="isadmin" >
           <q-item-section avatar>
             <q-icon name="help" />
           </q-item-section>
@@ -75,7 +91,7 @@
         </q-item>
 
         
-      <q-item to="/help" active-class="q-item-no-link-highlighting" >
+      <q-item to="#" active-class="q-item-no-link-highlighting" >
           <q-item-section avatar>
             <q-icon name="logout" />
           </q-item-section>
@@ -85,21 +101,19 @@
           </q-item-section>
         </q-item>
 
-        
-
+      
 
       </q-list>
     </q-drawer>
+    
  <q-page-container>
       <router-view />
     </q-page-container>
     <q-footer class="footer">
       <q-toolbar>
         <q-toolbar-title>
-          <q-avatar>
-            <img src="https://cdn.quasar.dev/logo/svg/quasar-logo.svg">
-          </q-avatar>
-       {{ new Date().getFullYear()}}   &copy; Developer by Blue Vinegar IOT Team
+         
+       {{ new Date().getFullYear()}}   &copy; Develop by Blue Vinegar IOT Team
         </q-toolbar-title>
       </q-toolbar>
     </q-footer>
@@ -108,6 +122,7 @@
 
 
 <script>
+import { mapGetters } from 'vuex'
 export default {
     name:'dashboard', //pagename
 
@@ -117,7 +132,12 @@ export default {
       leftDrawerOpen: false
     }
   },
-
+computed:
+{
+  ...mapGetters('auth',[
+      'isadmin'
+    ])
+},
   methods:
   {
     logout()
@@ -125,8 +145,20 @@ export default {
        this.$store.dispatch("auth/logout").then(() => {
         this.$router.push("/login");
       });
+    },
+
+    showNotif () {
+      this.$q.notify({
+        message: 'Please Clean Up',
+        color: 'blue',
+        avatar: 'https://media.istockphoto.com/vectors/cleaning-service-clipart-cartoon-mascot-vector-id1141622428?k=6&m=1141622428&s=612x612&w=0&h=vsheP6t13AZfp3wJNOzD2jpLmonW0ne-fG-1APoo7Vk=',
+       position: "top",
+     })
     }
-  }
+  },
+
+  
+  
 }
 </script>
 

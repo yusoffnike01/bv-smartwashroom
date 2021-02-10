@@ -36,7 +36,7 @@
         <q-card flat bordered class="my-card q-ma-sm" square>
           <q-card-section>
             <div class="text-h6">The list device Ammonia Sensor</div>
-            <div class="text-subtitle2">
+            <div class="text-subtitle2" v-if="isadmin">
               Click Here to set level Ammonia
               <q-btn
                 dense
@@ -66,7 +66,7 @@
                   </q-card-section>
 
                   <q-card-actions align="right" class="bg-white text-teal">
-                    <q-btn flat label="OK" v-close-popup />
+                    <q-btn flat label="OK" @click="setlevel" />
                   </q-card-actions>
                 </q-card>
               </q-dialog>
@@ -86,8 +86,9 @@
               @request="onRequest"
               binary-state-sort
               table-style="height:200px"
+              :visible-columns="visibleColumns"
             >
-               <template v-slot:top-right>
+              <template v-slot:top-right>
                 <q-input
                   borderless
                   dense
@@ -100,9 +101,10 @@
                   </template>
                 </q-input>
               </template>
-                   <template v-slot:body-cell-actions="props">
+              <template v-slot:body-cell-actions="props">
                 <q-td :props="props">
                   <q-btn
+                    v-if="isadmin"
                     dense
                     round
                     flat
@@ -111,6 +113,7 @@
                     icon="edit"
                   ></q-btn>
                   <q-btn
+                    v-if="isadmin"
                     dense
                     round
                     flat
@@ -118,9 +121,24 @@
                     @click="deleteRow(props.row.id)"
                     icon="delete"
                   ></q-btn>
-               
-
                 </q-td>
+              </template>
+              <template v-slot:no-data="{}">
+                <div class="full-width row flex-center text-blue q-gutter-sm">
+                  <q-circular-progress
+                    indeterminate
+                    :angle="270"
+                    :value="value"
+                    size="20px"
+                    :thickness="0.22"
+                    color="light-blue"
+                    track-color="grey-3"
+                    class="q-ma-md"
+                  />
+
+                  <span> Loading.. </span>
+                  <q-icon size="2em" />
+                </div>
               </template>
             </q-table>
           </div>
@@ -128,7 +146,7 @@
         </q-card>
       </div>
 
-      <div class="col-12 col-md-6">
+      <div v-if="isadmin" class="col-12 col-md-6">
         <q-card
           flat
           bordered
@@ -168,7 +186,7 @@
                   color="primary"
                   label="Register"
                   @click="register_ammonia"
-                />
+                />level
               </div>
             </div>
 
@@ -197,6 +215,8 @@
 <script>
 import ammonia from "@/pages/login/ammonia.vue";
 import ammoniadevice from "@/pages/login/ammoniadevice.vue";
+import { mapGetters } from "vuex";
+
 export default {
   name: "graphammonia",
   components: {
@@ -210,9 +230,12 @@ export default {
       loading: false,
       iddevice: "",
       location: "",
-     
+      level: "",
+      value: 61,
 
       update: false,
+
+      visibleColumns: [],
 
       pagination: {
         sortBy: "name",
@@ -223,6 +246,7 @@ export default {
       },
 
       //name every Column
+
       columns: [
         { name: "User", align: "center", label: "No", field: "userId" },
         {
@@ -240,12 +264,17 @@ export default {
 
         { name: "completed", label: "Update At", field: "completed" },
         { name: "location", label: "Location", field: "Location" },
+
         { name: "actions", label: "Actions", field: "Action" },
       ],
       data: [],
 
       original: [{}],
     };
+  },
+
+  computed: {
+    ...mapGetters("auth", ["isadmin"]),
   },
 
   mounted() {
@@ -265,8 +294,28 @@ export default {
       this.$store
         .dispatch("cleaner/display")
         .then((response) => {
+          if (!this.isadmin) {
+            (this.visibleColumns = [
+              "User",
+              "id",
+              "title",
+              "completed",
+              "location",
+            ]),
+              console.log("masuk");
+            this.$q.notify({
+              message: "Please Clean Up Device 1",
+              color: "blue",
+              avatar:
+                "https://media.istockphoto.com/vectors/cleaning-service-clipart-cartoon-mascot-vector-id1141622428?k=6&m=1141622428&s=612x612&w=0&h=vsheP6t13AZfp3wJNOzD2jpLmonW0ne-fG-1APoo7Vk=",
+              position: "top",
+            });
+          } else {
+            console.log("x masuk");
+          }
+
           this.original = response.data;
-          console.log(response.data);
+
           setTimeout(() => {
             // update rowsCount with appropriate value
             this.pagination.rowsNumber = this.getRowsNumberCount(filter);
@@ -383,8 +432,7 @@ export default {
       }
     },
 
-
-     editRow(props) {
+    editRow(props) {
       this.$store
         .dispatch("cleaner/updatebyid", props)
         .then(() => {
@@ -427,6 +475,15 @@ export default {
             position: "top",
           });
         });
+    },
+
+    setlevel() {
+      let data = {
+        level: this.level,
+      };
+
+      console.log(data);
+      this.update = false;
     },
   },
 };

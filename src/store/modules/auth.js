@@ -1,6 +1,9 @@
 import Axios from "axios";
 const state = () => ({
   token: localStorage.getItem("token") || "",
+  role_id:localStorage.getItem("role_id")||"",
+
+   
  
  
 });
@@ -8,8 +11,10 @@ const state = () => ({
 const mutations = {
   saveuser(state, payload) {
     state.token = payload;
+   
 //    localstorage.setitem('islogin',payload)
-    localStorage.setItem("token", payload);
+    localStorage.setItem("token", payload.headers);
+    localStorage.setItem("role_id",payload.role_id);
     Axios.defaults.headers.common["Authorization"] = payload;
   },
 
@@ -17,17 +22,22 @@ const mutations = {
   removeUser(state) {
     state.token = ''
     localStorage.removeItem('token')
+    localStorage.removeItem('role_id')
     delete Axios.defaults.headers.common['Authorization']
 }
+
+
 
   
 };
 
 const getters = {
   isLoggedIn: (state) => !!state.token,
+  isadmin:(state)=>state.role_id==1? false: true
 };
 
 const actions = {
+
   login({ commit }, payload) {
     return new Promise((resolve, reject) => {
       Axios.post(
@@ -35,7 +45,13 @@ const actions = {
         payload
       )
         .then((response) => {
-          commit("saveuser", response.headers.authorization);
+          let data={
+            headers:response.headers.authorization,
+            role_id:response.data.role_id
+            
+
+          }
+          commit("saveuser", data);
           console.log(response)
           resolve(response);
         })
