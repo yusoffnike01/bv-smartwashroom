@@ -1,5 +1,5 @@
 <template>
-  <div class="q-pa-md">
+  <div class="q-pa-md" style="background-color:#F1F5F7">
     <div class="row justify-center">
       <div class="col-12 col-md-6">
         <q-card flat bordered class="my-card q-ma-sm" square>
@@ -100,7 +100,7 @@
                     round
                     flat
                     color="green"
-                    
+                  
                     @click="details(props.row)"
                     icon="visibility"
                     
@@ -258,14 +258,33 @@ export default {
       original: [{}],
     };
   },
-   beforeCreate()
- {
-   this.isadmin=this.$store.getters['auth/isadmin']
+//    created()
+//  {
+//    this.isadmin=this.$store.getters['auth/isadmin']
+//    console.log(this.isadmin)
     
- },
+//  },
   
 
   mounted() {
+
+
+// condition detect role id
+  if(localStorage.getItem('role_id')==1)
+   {
+     this.isadmin=true
+    
+    
+   }
+   else if (localStorage.getItem('role_id')==2)
+
+{
+    this.isadmin=false
+  
+
+}
+
+
     // get initial data from server (1st page)
     this.onRequest({
       pagination: this.pagination,

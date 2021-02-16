@@ -1,6 +1,6 @@
 <template>
     
-<div class="q-pa-md">
+<div class="q-pa-md" style="background-color:#F1F5F7">
 <h3>Toilet 2-Level 37-Female's Door Device</h3>
 <div class=" row justify-center">
 
@@ -74,7 +74,7 @@
     </div>
 
 
-prop
+
     </div>
 
 </template>

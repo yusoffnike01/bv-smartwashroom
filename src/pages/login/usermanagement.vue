@@ -1,7 +1,113 @@
 <template>
-  <div class="q-pa-md">
+  <div class="q-pa-md" style="background-color:#F1F5F7">
     <!-- component to register cleaner -->
     <div class=" row justify-center">
+
+       <div class="row col-12 col-md-12" v-if="this.isadmin" square style="background-color:#F1F5F7;height:550px">
+      
+      <div class="col-12 col-md-12" >
+        <q-card-section align="center" >
+          <q-img
+            class="flex-self-end profile-photo circle-border dangling-bottom"
+            :src="require('@/image/profile.png')"
+            spinner-color="black"
+            style="width: 200px"
+          />
+        </q-card-section>
+
+        <q-card flat class="my-card q-ma-sm " square >
+          <q-card-section dark inset  >
+            <div class="text-h4" align="center">Profile Admin</div>
+            <div class="text-subtitle2" ></div>
+            <div class="d-flex flex-justify-center mb-5" border >
+              <table
+                class="positionadmin"
+                align="center"
+                outline
+                style="margin-top:2%"
+              >
+             
+                <tr class="text-h6">
+                  <td>ID:</td>
+                  <td>S4675</td>
+                </tr>
+                <tr class="text-h6">
+                  <td>Name:</td>
+                  <td>Tengku Yusoff Bin Tengku Ibrahim Shukrillah</td>
+                </tr>
+                <tr class="text-h6">
+                  <td>Email:</td>
+                  <td>yusoff@gmail.com</td>
+                </tr>
+                <tr></tr>
+
+                <tr class="text-h6">
+                  <td>Last Login :</td>
+                  <td>-----</td>
+                </tr>
+                <tr>
+                  <td>
+                    <div class="q-pa-md q-gutter-sm" >
+                      <q-btn
+                        label="Update"
+                        color="primary"
+                        @click="update = true"
+                      />
+
+                      <q-dialog v-model="update">
+                        <q-card style="width: 700px; max-width: 80vw" >
+                          <q-card-section>
+                            <div class="text-h6">Update Password</div>
+                          </q-card-section>
+
+                          <q-card-section class="q-pt-none">
+                            <q-input
+                              outlined
+                              ref="password"
+                              v-model="password"
+                              label="password"
+                              placeholder="Enter your  Password"
+                              hint=""
+                              :rules="[
+                                (val) => !!val || 'Please Enter Your Password',
+                              ]"
+                            />
+                          </q-card-section>
+
+                          <q-card-section>
+                            <q-input
+                              outlined
+                              ref="confirmationpass"
+                              v-model="confirmationpass"
+                              label="password"
+                              placeholder="Enter your Confirmation Password"
+                              hint=""
+                              :rules="[
+                                (val) => !!val || 'Please Enter Your Password',
+                              ]"
+                            />
+                          </q-card-section>
+
+                          <q-card-actions
+                            align="right"
+                            class="bg-white text-teal"
+                          >
+                            <q-btn flat label="OK" @click="updatepassword" />
+                          </q-card-actions>
+                        </q-card>
+                      </q-dialog>
+                    </div>
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </q-card-section>
+         
+        </q-card>
+       
+      </div>
+  
+    </div>
       <div  class="col-12 col-md-6" v-if="this.isadmin">
         <q-card square flat bordered class="my-card q-ma-sm">
           <q-card-section>
@@ -55,7 +161,7 @@
         </q-card>
       </div>
 
-      <div  class="col-12 col-md-6" v-if="this.isadmin">
+      <div  class="col-12 col-md-6" v-if="this.isadmin" >
         <q-card square flat bordered class="my-card q-mt-sm">
           <q-card-section>
             <q-table
@@ -115,9 +221,10 @@
       </div>
     </div>
 
-    <div class="row" v-if="!this.isadmin">
-      <div class="col-12 col-md-12">
-        <q-card-section align="center">
+    <div class="row" v-if="!this.isadmin" square style="background-color:#F1F5F7;height:660px">
+      
+      <div class="col-12 col-md-12" >
+        <q-card-section align="center" >
           <q-img
             class="flex-self-end profile-photo circle-border dangling-bottom"
             :src="require('@/image/profile.png')"
@@ -126,11 +233,11 @@
           />
         </q-card-section>
 
-        <q-card flat class="my-card q-ma-sm" square>
-          <q-card-section dark inset>
+        <q-card flat class="my-card q-ma-sm " square >
+          <q-card-section dark inset  >
             <div class="text-h4" align="center">Profile Cleaner1</div>
-            <div class="text-subtitle2"></div>
-            <div class="d-flex flex-justify-center mb-5" border>
+            <div class="text-subtitle2" ></div>
+            <div class="d-flex flex-justify-center mb-5" border >
               <table
                 class="positionadmin"
                 align="center"
@@ -158,7 +265,7 @@
                 </tr>
                 <tr>
                   <td>
-                    <div class="q-pa-md q-gutter-sm">
+                    <div class="q-pa-md q-gutter-sm" >
                       <q-btn
                         label="Update"
                         color="primary"
@@ -166,7 +273,7 @@
                       />
 
                       <q-dialog v-model="update">
-                        <q-card style="width: 700px; max-width: 80vw">
+                        <q-card style="width: 700px; max-width: 80vw" >
                           <q-card-section>
                             <div class="text-h6">Update Password</div>
                           </q-card-section>
@@ -213,12 +320,16 @@
               </table>
             </div>
           </q-card-section>
+         
         </q-card>
+       
       </div>
+  
     </div>
 
-    <div class="row" v-if="this.isadmin">
-      <div class="col-16 col-md-6">
+    <!-- <div class="row" v-if="this.isadmin">
+
+      <div class="col-12 col-md-6">
         <q-card flat bordered class="my-card q-ma-sm" square>
           <q-card-section dark inset>
             <div class="text-h6">Profile Admin</div>
@@ -302,6 +413,7 @@
         </q-card>
       </div>
     </div>
+   -->
   </div>
 </template>
 
@@ -349,15 +461,32 @@ export default {
       original: [{}],
     };
   },
- beforeCreate()
- {
-   this.isadmin=this.$store.getters['auth/isadmin']
- },
+//  created()
+//  {
+//    this.isadmin=this.$store.getters['auth/isadmin']
+//    console.log('sss')
+//  },
 
   // computed: {
   //   ...mapGetters("auth", ["isadmin"]),
   // },
   mounted() {
+
+  if(localStorage.getItem('role_id')==1)
+   {
+     this.isadmin=true
+    
+    
+   }
+   else if (localStorage.getItem('role_id')==2)
+
+{
+    this.isadmin=false
+  
+    
+}
+
+
     // get initial data from server (1st page)
     this.onRequest({
       pagination: this.pagination,

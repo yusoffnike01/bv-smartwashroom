@@ -154,6 +154,6 @@ export default {
 
 .background
 {
- background-color: #d8dce3;
+ background-color: #F1F5F7;
 }
 </style>

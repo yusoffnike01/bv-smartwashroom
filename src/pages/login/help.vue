@@ -1,7 +1,7 @@
 <template>
 
 <!-- Page guide admin to register device  and how to use this system -->
-    <div class="q-pa-md">
+    <div class="q-pa-md" style="background-color:#F1F5F7">
  <div class="row justify-center">
  <div class="col-12 col-md-12">
  <q-card flat bordered class="my-card q-ma-sm" square>
@@ -19,6 +19,7 @@
     </ul>
 
  <div class="w-100"></div>
+ <div class="board">
     <h3 id="add-new-device">Add New Device</h3>
     <div class="w-100"></div>
     <p>To add a new device, go to <b>Dashboard Devices</b>
@@ -38,6 +39,7 @@
     <p>Analysis is a special page that shows you the stats of all smart Washroom devices displayed in
       beautiful charts. It is useful to compare and contrast devices.</p>
     <p>Go to Device page</p>
+    </div>
         </q-card>
 
      </div>
@@ -59,3 +61,10 @@ export default {
     name:"help"
 }
 </script>
+
+<style scoped>
+.board
+{
+  margin-left: 5%;
+}
+</style>

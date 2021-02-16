@@ -33,7 +33,8 @@ const mutations = {
 
 const getters = {
   isLoggedIn: (state) => !!state.token,
-  isadmin:(state)=>state.role_id==1? false: true
+  isadmin:(state)=>state.role_id==1? true: false
+
 };
 
 const actions = {

@@ -54,12 +54,18 @@ const router = new Router({
       path:'/help',
       component:()=> import('./pages/login/help.vue'),
 
-    }
+    },
+    
+   
 
   ]
 
 
       },
+
+      { path: "*",
+       component:()=> import('./pages/login/page404.vue'),
+      }
 
       // {
       //   path:'/usermanagement',

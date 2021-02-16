@@ -1,6 +1,6 @@
 
 <template>
-  <div class="q-pa-md">
+  <div class="q-pa-md" style="background-color:#F1F5F7">
     <div class="row justify-center">
       <div class="col-12 col-md-6">
         <q-card flat bordered class="my-card q-ma-sm" square>
@@ -36,7 +36,7 @@
         <q-card flat bordered class="my-card q-ma-sm" square>
           <q-card-section>
             <div class="text-h6">The list device Ammonia Sensor</div>
-            <div class="text-subtitle2"  v-if="this.iscleaner" >
+            <div class="text-subtitle2"  v-if="this.isadmin" >
               Click Here to set level Ammonia
               <q-btn
                 dense
@@ -45,7 +45,7 @@
                 color="blue"
                 @click="update = true"
                 icon="sensors"
-                v-if="this.iscleaner"
+                v-if="this.isadmin"
               ></q-btn>
 
               <q-dialog v-model="update">
@@ -139,9 +139,10 @@
           </div>
           <q-card-section> </q-card-section>
         </q-card>
+        <br><br>
       </div>
 
-      <div v-if="this.iscleaner" class="col-12 col-md-6">
+      <div v-if="this.isadmin" class="col-12 col-md-6">
         <q-card
           flat
           bordered
@@ -181,7 +182,7 @@
                   color="primary"
                   label="Register"
                   @click="register_ammonia"
-                />level
+                />
               </div>
             </div>
 
@@ -216,7 +217,7 @@ export default {
       location: "",
       level: "",
       value: 61,
-      iscleaner:null,
+      isadmin:null,
       
 
       update: false,
@@ -259,18 +260,34 @@ export default {
     };
   },
 
-beforeCreate()
-{
+// created()
+// {
 
-this.iscleaner=this.$store.getters['auth/isadmin']
+// this.isadmin=this.$store.getters['auth/isadmin']
 
 
-},
+// },
   // computed: {
   //   ...mapGetters("auth", ["isadmin"]),
   // },
 
   mounted() {
+
+
+    // condition detect role id
+  if(localStorage.getItem('role_id')==1)
+   {
+     this.isadmin=true
+     console.log(' masuk......')
+    
+   }
+   else if (localStorage.getItem('role_id')==2)
+
+{
+    this.isadmin=false
+  
+    console.log('x masuk......')
+}
     // get initial data from server (1st page)
     this.onRequest({
       pagination: this.pagination,
