@@ -1,9 +1,9 @@
 <template>
-  <div class="q-pa-md" style="background-color:#F1F5F7">
+  <div class="q-pa-md">
     <!-- component to register cleaner -->
     <div class=" row justify-center">
 
-       <div class="row col-12 col-md-12" v-if="this.isadmin" square style="background-color:#F1F5F7;height:550px">
+       <div class="row col-12 col-md-12" v-if="this.isadmin" square style="height:550px">
       
       <div class="col-12 col-md-12" >
         <q-card-section align="center" >
@@ -67,7 +67,7 @@
                               v-model="password"
                               label="password"
                               placeholder="Enter your  Password"
-                              hint=""
+                         outline     hint=""
                               :rules="[
                                 (val) => !!val || 'Please Enter Your Password',
                               ]"
@@ -108,8 +108,8 @@
       </div>
   
     </div>
-      <div  class="col-12 col-md-6" v-if="this.isadmin">
-        <q-card square flat bordered class="my-card q-ma-sm">
+      <div  class="col-12 col-md-6" v-if="this.isadmin" >
+        <q-card square flat  class="my-card q-ma-sm">
           <q-card-section>
             <h5>Register Form Cleaner</h5>
 
@@ -162,7 +162,7 @@
       </div>
 
       <div  class="col-12 col-md-6" v-if="this.isadmin" >
-        <q-card square flat bordered class="my-card q-mt-sm">
+        <q-card square flat  class="my-card q-mt-sm">
           <q-card-section>
             <q-table
               title="Table"
@@ -221,7 +221,7 @@
       </div>
     </div>
 
-    <div class="row" v-if="!this.isadmin" square style="background-color:#F1F5F7;height:660px">
+    <div class="row" v-if="!this.isadmin" square style="height:660px">
       
       <div class="col-12 col-md-12" >
         <q-card-section align="center" >

@@ -15,7 +15,8 @@
          
         </q-toolbar-title>
 <div class="q-pa-md">
-    
+    <q-btn dense  flat color="white" icon="notification_important"></q-btn>
+
   </div>
         <!-- <div style="color:black">Cleaner1</div> -->
             <div class="q-pa-md q-gutter-sm">
@@ -113,7 +114,7 @@
       <q-toolbar>
         <q-toolbar-title>
          <div class="word text-center">
-               {{ new Date().getFullYear()}}   &copy; Developer by Blue Vinegar
+               {{ new Date().getFullYear()}}   &copy; All rights reserved
     
            </div>
        </q-toolbar-title>
@@ -125,8 +126,11 @@
 
 <script>
 // import { mapGetters } from 'vuex'
+
 export default {
     name:'dashboard', //pagename
+         
+    
 
 
      data () {

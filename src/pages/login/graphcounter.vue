@@ -1,11 +1,11 @@
 <script>
 
 
-import { Bar } from 'vue-chartjs'
+import { Line } from 'vue-chartjs'
 export default {
     name:"graphcounter",
     
-    extends: Bar,
+    extends: Line,
    mounted() {
         this.renderChart({
             labels: [
@@ -18,11 +18,12 @@ export default {
                     barPercentage: 0.7,
                     categoryPercentage: 0.5,
                     label: 'Device',
-                    backgroundColor: '#3498eb',
-                    borderColor: '#3498eb',
+                     backgroundColor: 'rgba(59, 175, 218, 0.3)',
+                    
+                    // borderColor: '#3498eb',
                     hoverBackgroundColor: '#3498eb',
                     hoverBorderColor: '#3498eb',
-                    data: [10, 10, 10],
+                    data: [10, 15, 7],
                 },
                
             ],
@@ -43,9 +44,9 @@ export default {
                     },
                 }, ],
                 xAxes: [{
-                    stacked: false,
+                     reverse: true,
                     gridLines: {
-                        color: 'rgba(0,0,0,0.01)',
+                        color: 'rgba(0,0,0,0.0.5)',
                     },
                 }, ],
             },

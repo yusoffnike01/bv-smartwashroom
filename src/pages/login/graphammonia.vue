@@ -1,9 +1,9 @@
 
 <template>
-  <div class="q-pa-md" style="background-color:#F1F5F7">
+  <div class="q-pa-md" style="background-color:white">
     <div class="row justify-center">
       <div class="col-12 col-md-6">
-        <q-card flat bordered class="my-card q-ma-sm" square>
+        <q-card flat  class="my-card q-ma-sm" square>
           <q-card-section>
             <div class="text-h6">The Total Ammonia Device on Toilet</div>
             <div class="text-subtitle2"></div>
@@ -18,7 +18,7 @@
       </div>
 
       <div class="col-12 col-md-6">
-        <q-card flat bordered class="my-card q-ma-sm" square>
+        <q-card flat  class="my-card q-ma-sm" square>
           <q-card-section>
             <div class="text-h6">Ammonia Per Device</div>
             <div class="text-subtitle2"></div>
@@ -27,13 +27,13 @@
           <q-separator dark inset />
 
           <q-card-section>
-            <ammoniadevice :height="350" />
+            <graphamonialine :height="350" />
           </q-card-section>
         </q-card>
       </div>
 
       <div class="col-12 col-md-6">
-        <q-card flat bordered class="my-card q-ma-sm" square>
+        <q-card flat  class="my-card q-ma-sm" square>
           <q-card-section>
             <div class="text-h6">The list device Ammonia Sensor</div>
             <div class="text-subtitle2"  v-if="this.isadmin" >
@@ -145,7 +145,7 @@
       <div v-if="this.isadmin" class="col-12 col-md-6">
         <q-card
           flat
-          bordered
+          
           class="my-card q-ma-sm"
           square
           style="height: 445px"
@@ -199,14 +199,16 @@
 
 <script>
 import ammonia from "@/pages/login/ammonia.vue";
-import ammoniadevice from "@/pages/login/ammoniadevice.vue";
+// import ammoniadevice from "@/pages/login/ammoniadevice.vue";
+import graphamonialine from "@/pages/login/graphamonialine.vue";
 // import { mapGetters } from "vuex";
 
 export default {
   name: "graphammonia",
   components: {
     ammonia,
-    ammoniadevice,
+    // ammoniadevice,
+    graphamonialine
   },
 
   data() {
@@ -313,13 +315,7 @@ export default {
               "location",
             ]),
               
-            this.$q.notify({
-              message: "Please Clean Up Device 1",
-              color: "blue",
-              avatar:
-                "https://media.istockphoto.com/vectors/cleaning-service-clipart-cartoon-mascot-vector-id1141622428?k=6&m=1141622428&s=612x612&w=0&h=vsheP6t13AZfp3wJNOzD2jpLmonW0ne-fG-1APoo7Vk=",
-              position: "top",
-            });
+           console.log
 
             
           } 

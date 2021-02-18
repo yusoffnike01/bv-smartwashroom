@@ -1,8 +1,8 @@
 <template>
-  <div class="q-pa-md" style="background-color:#F1F5F7">
+  <div class="q-pa-md">
     <div class="row justify-center">
       <div class="col-12 col-md-6">
-        <q-card flat bordered class="my-card q-ma-sm" square>
+        <q-card flat  class="my-card q-ma-sm" square>
           <q-card-section>
             <div class="text-h6">The Total People Counter every on Toilet</div>
             <div class="text-subtitle2"></div>
@@ -13,7 +13,7 @@
       </div>
 
       <div class="col-12 col-md-6">
-        <q-card flat bordered class="my-card q-ma-sm" square>
+        <q-card flat  class="my-card q-ma-sm" square>
           <q-card-section>
             <div class="text-h6">
               The Overall People counter Toilet per Month
@@ -26,7 +26,7 @@
       </div>
 
       <div class="col-12 col-md-6">
-        <q-card flat bordered class="my-card q-ma-sm" square>
+        <q-card flat  class="my-card q-ma-sm" square>
           <q-card-section dark inset>
             <div class="text-h6">The List Door Devices</div>
             <div class="text-subtitle2">
@@ -129,7 +129,7 @@
       </div>
 
       <div v-if="this.isadmin" class="col-12 col-md-6">
-        <q-card flat bordered class="my-card q-ma-sm" square>
+        <q-card flat  class="my-card q-ma-sm" square>
           <q-card-section dark inset>
             <div class="text-h6">The Register Form Device's Door</div>
             <div class="text-subtitle2"></div>
@@ -303,16 +303,6 @@ export default {
         .dispatch("cleaner/display")
         .then((response) => {
 
-if(localStorage.getItem('role_id')==1)
-{
- 
-     this.$q.notify({
-        message: 'Please Clean Up Device 1',
-        color: 'blue',
-        avatar: 'https://media.istockphoto.com/vectors/cleaning-service-clipart-cartoon-mascot-vector-id1141622428?k=6&m=1141622428&s=612x612&w=0&h=vsheP6t13AZfp3wJNOzD2jpLmonW0ne-fG-1APoo7Vk=',
-       position: "top",
-     })
-}
 
 
       
