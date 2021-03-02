@@ -3,6 +3,8 @@ import Vuex from 'vuex'
 import auth from './modules/auth'
 import cleaner from './modules/cleaner'
 import deviceammonia from './modules/deviceammonia'
+import infodevice from './modules/infodevice'
+
 Vue.use(Vuex)
 
 const store= new Vuex.Store(
@@ -11,6 +13,7 @@ const store= new Vuex.Store(
             auth,
             cleaner,
             deviceammonia,
+            infodevice
            
         }
         // state: {

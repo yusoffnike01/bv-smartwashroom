@@ -1,6 +1,6 @@
 import Axios from "axios";
 
-const DISPLAY='https://jsonplaceholder.typicode.com/todos'
+const DISPLAY='https://washroomiot.herokuapp.com/api/v1/detailammoni'
 const Insert=''
 const DELETE=''
 const UPDATE=''

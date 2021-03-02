@@ -1,32 +1,15 @@
+<script>
+ import { gradientLineChart } from "vue-apexcharts";
+export default {
+    name:'ammoniperdevice',
+ extends:gradientLineChart,
 
-const axios = require('axios');
-const ID_Device=[];
-      let level=[]
-
-axios.get('https://washroomiot.herokuapp.com/api/v1/detailammoni').then(resp => {
-
-for(const dataobj of resp.data.data)
-{
-    ID_Device.push(dataobj.ID_Device)
-    level.push(dataobj.level)
-}
+mounted(){
+   gradientLineChart={
 
 
 
-    
-
-    
-});
- const gradientLineChart = {
-
-
-  
-    
     chartOptions: {
-
-
-
-        
         chart: {
             shadow: {
                 enabled: false,
@@ -43,7 +26,7 @@ for(const dataobj of resp.data.data)
         },
         xaxis: {
             
-            categories:ID_Device
+            categories:['Device01','Device02','Device03']
         },
         title: {
             text: 'Device',
@@ -100,12 +83,16 @@ for(const dataobj of resp.data.data)
         name: 'Device',
         data: [100,120,145]
     }],
-};
+ };
 
+}
 
+}
 
 
 
 export {
    gradientLineChart, 
 };
+
+</script>

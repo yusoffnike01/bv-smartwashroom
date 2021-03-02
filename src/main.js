@@ -14,6 +14,8 @@ if (token) {
   Vue.prototype.$http.defaults.headers.common['Authorization'] = token
 }
 
+export const eventBus = new Vue()
+
 new Vue({
   store,
   router,

@@ -1,29 +1,60 @@
+
 <script>
 
 
 import { Bar } from 'vue-chartjs'
+
+ import { date } from "quasar";
+
 export default {
     name:"graphcounterdetail",
     
     extends: Bar,
-   mounted() {
+data() {
+    return {
+   
+      currentdatecurrentcount:null,
+      currentdate:''
+
+     
+     
+
+    };
+  },
+
+    
+   created()
+    {
        
-        this.renderChart({
-            labels: [
-                'January',
-                'February',
-                
-               
-            ],
+      
+
+       
+    },
+    mounted()
+    {
+ 
+      
+         this.$store
+      .dispatch('deviceammonia/getcountbyid',this.$route.params.id)
+      .then((response) => {
+
+this.currentcount=response.data.data[0].count
+this.currentdate=response.data.data[0].date
+
+          
+
+         
+            this.renderChart({
+            labels: [date.formatDate(this.currentdate, "MMMM")],
             datasets: [{
                     barPercentage: 0.7,
                     categoryPercentage: 0.5,
-                    label: 'Cumulative Number of People',
-                    backgroundColor: '#eb3434',
-                    borderColor: '#eb3434',
-                    hoverBackgroundColor: '#eb3434',
-                    hoverBorderColor: '#eb3434',
-                    data: [33, 27],
+                    label: 'Amount',
+                    backgroundColor: '#5188ea',
+                    borderColor: '#5188ea',
+                    hoverBackgroundColor: '#5188ea',
+                    hoverBorderColor: '#5188ea',
+                    data: [this.currentcount],
                 },
                
             ],
@@ -38,10 +69,6 @@ export default {
                     gridLines: {
                         display: false,
                     },
-                     scaleLabel: {
-                  display: true,
-                  labelString: 'Cumulative Number of People',
-                },
                     stacked: false,
                     ticks: {
                         stepSize: 20,
@@ -55,6 +82,60 @@ export default {
                 }, ],
             },
         })
-    },
+
+      })
+      .catch((error) => {
+       console.log(error)
+      });
+       
+
+
+              
+
+    }
+    ,methods:
+    {
+        createchart()
+        {
+        //       this.renderChart({
+        //     labels: [date.formatDate(this.currentdate, "MMMM")],
+        //     datasets: [{
+        //             barPercentage: 0.7,
+        //             categoryPercentage: 0.5,
+        //             label: 'Amount',
+        //             backgroundColor: '#5188ea',
+        //             borderColor: '#5188ea',
+        //             hoverBackgroundColor: '#5188ea',
+        //             hoverBorderColor: '#5188ea',
+        //             data: [this.currentcount],
+        //         },
+               
+        //     ],
+        // }, {
+        //     responsive: true,
+        //     maintainAspectRatio: false,
+        //     legend: {
+        //         display: false,
+        //     },
+        //     scales: {
+        //         yAxes: [{
+        //             gridLines: {
+        //                 display: false,
+        //             },
+        //             stacked: false,
+        //             ticks: {
+        //                 stepSize: 20,
+        //             },
+        //         }, ],
+        //         xAxes: [{
+        //             stacked: false,
+        //             gridLines: {
+        //                 color: 'rgba(0,0,0,0.01)',
+        //             },
+        //         }, ],
+        //     },
+        // })
+        }
+    }
 }
 </script>

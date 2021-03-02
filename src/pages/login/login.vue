@@ -79,7 +79,7 @@
 import isEmail from "validator/lib/isEmail";
 
 export default {
-  name: "login", //pagename
+  name: "login", //pagena<div class="">me
 // detect token in localstorage
 
   beforeRouteEnter(to, from, next) {

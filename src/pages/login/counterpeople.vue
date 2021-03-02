@@ -2,7 +2,7 @@
   <div class="q-pa-md">
     <div class="row justify-center">
       <div class="col-12 col-md-6">
-        <q-card flat  class="my-card q-ma-sm" square>
+        <q-card flat class="my-card q-ma-sm" square>
           <q-card-section>
             <div class="text-h6">The Total People Counter every on Toilet</div>
             <div class="text-subtitle2"></div>
@@ -13,7 +13,7 @@
       </div>
 
       <div class="col-12 col-md-6">
-        <q-card flat  class="my-card q-ma-sm" square>
+        <q-card flat class="my-card q-ma-sm" square>
           <q-card-section>
             <div class="text-h6">
               The Overall People counter Toilet per Month
@@ -26,7 +26,7 @@
       </div>
 
       <div class="col-12 col-md-6">
-        <q-card flat  class="my-card q-ma-sm" square>
+        <q-card flat class="my-card q-ma-sm" square>
           <q-card-section dark inset>
             <div class="text-h6">The List Door Devices</div>
             <div class="text-subtitle2">
@@ -67,7 +67,6 @@
               <template v-slot:body-cell-actions="props">
                 <q-td :props="props">
                   <q-btn
-                   
                     dense
                     round
                     flat
@@ -76,11 +75,11 @@
                     @click="editRow(props.row.id)"
                     icon="edit"
                   >
-                   <q-tooltip content-class="bg-blue" :offset="[10, 10]">
-         Click Now
-        </q-tooltip></q-btn>
+                    <q-tooltip content-class="bg-blue" :offset="[10, 10]">
+                      Click Now
+                    </q-tooltip></q-btn
+                  >
                   <q-btn
-                  
                     dense
                     round
                     flat
@@ -89,38 +88,29 @@
                     @click="deleteRow(props.row.id)"
                     icon="delete"
                   >
-                  
-                   <q-tooltip content-class="bg-red" :offset="[10, 10]">
-         Click Now
-        </q-tooltip>
-                  
+                    <q-tooltip content-class="bg-red" :offset="[10, 10]">
+                      Click Now
+                    </q-tooltip>
                   </q-btn>
                   <q-btn
                     dense
                     round
                     flat
                     color="green"
-                  
                     @click="details(props.row)"
                     icon="visibility"
-                    
                   >
-                   <q-tooltip content-class="bg-green" :offset="[10, 10]">
-         Click Now
-        </q-tooltip>
-                  
+                    <q-tooltip content-class="bg-green" :offset="[10, 10]">
+                      Click Now
+                    </q-tooltip>
                   </q-btn>
                 </q-td>
               </template>
 
               <template v-slot:no-data="{}">
                 <div class="full-width row flex-center text-blue q-gutter-sm">
-                  <q-spinner
-        color="primary"
-        size="3em"
-      />
+                  <q-spinner color="primary" size="3em" />
                   <span> Loading.. </span>
-            
                 </div>
               </template>
             </q-table>
@@ -129,14 +119,14 @@
       </div>
 
       <div v-if="this.isadmin" class="col-12 col-md-6">
-        <q-card flat  class="my-card q-ma-sm" square>
+        <q-card flat class="my-card q-ma-sm" square>
           <q-card-section dark inset>
             <div class="text-h6">The Register Form Device's Door</div>
             <div class="text-subtitle2"></div>
             <div class="position" style="height: 312px; margin-top: 8%">
               <q-input
-                ref="iddevice"
-                v-model="iddevice"
+                ref="ID_Device"
+                v-model="ID_Device"
                 label="ID Device"
                 placeholder=""
                 hint=""
@@ -150,7 +140,7 @@
                 placeholder=""
                 hint=""
                 :rules="[(val) => !!val || 'Please fill Location ']"
-              />
+              /> 
 
               <q-input
                 ref="maxpeople"
@@ -204,7 +194,7 @@
 <script>
 import graphcounter from "@/pages/login/graphcounter.vue";
 import graphmonthcounter from "@/pages/login/graphmonthcounter.vue";
-
+import { date } from "quasar";
 export default {
   name: "counterpeople",
   components: {
@@ -216,14 +206,12 @@ export default {
     return {
       filter: "",
       loading: false,
-      iddevice: "",
+      ID_Device: "",
       location: "",
       maxpeople: "",
       value: 61,
-      isadmin:null,
-
+      isadmin: null,
       update: false,
-     
 
       pagination: {
         sortBy: "name",
@@ -235,62 +223,54 @@ export default {
 
       //name every Column
       columns: [
-        { name: "User", align: "center", label: "No", field: "userId" },
+        { name: "No", align: "center", label: "No", field: "no" },
         {
-          name: "id",
+          name: "ID_Device",
           align: "center",
           label: "ID Device",
-          field: "id",
+          field: "ID_Device",
         },
         {
-          name: "title",
+          name: "count",
           align: "center",
           label: "Count",
-          field: "title",
+          field: "count",
         },
 
-        { name: "completed", label: "Update At", field: "completed" },
+        {
+          name: "updated_at",
+          label: "Update At",
+          field: "updated_at",
+          format: (val) => `${date.formatDate(val, "DD-MMM-YYYY hh:m:A")}`,
+        },
         { name: "Location", label: "Location", field: "location" },
-        { name: "actions", label: "Actions", field: "Action" },
+        { name: "actions", label: "Actions", field: "actions" },
       ],
       data: [],
 
       original: [{}],
     };
   },
-//    created()
-//  {
-//    this.isadmin=this.$store.getters['auth/isadmin']
-//    console.log(this.isadmin)
-    
-//  },
-  
+  //    created()
+  //  {
+  //    this.isadmin=this.$store.getters['auth/isadmin']
+  //    console.log(this.isadmin)
+
+  //  },
 
   mounted() {
-
-
-// condition detect role id
-  if(localStorage.getItem('role_id')==1)
-   {
-     this.isadmin=true
-    
-    
-   }
-   else if (localStorage.getItem('role_id')==2)
-
-{
-    this.isadmin=false
-  
-
-}
-
+    // condition detect role id
+    if (localStorage.getItem("role_id") == 1) {
+      this.isadmin = true;
+    } else if (localStorage.getItem("role_id") == 2) {
+      this.isadmin = false;
+    }
 
     // get initial data from server (1st page)
     this.onRequest({
       pagination: this.pagination,
       filter: undefined,
     });
- 
   },
 
   methods: {
@@ -300,14 +280,9 @@ export default {
 
       this.loading = true;
       this.$store
-        .dispatch("cleaner/display")
+        .dispatch("deviceammonia/perdevicecounter")
         .then((response) => {
-
-
-
-      
-          this.original = response.data;
-
+          this.original = response.data.data;
           setTimeout(() => {
             // update rowsCount with appropriate value
             this.pagination.rowsNumber = this.getRowsNumberCount(filter);
@@ -468,11 +443,16 @@ export default {
       //  this.$store.dispatch("deviceammonia/successdata", props).then(() => {});
       this.$router.push({
         name: "detailviewcounter",
-        params: { id: props.id },
+    
+        params: {
+          id: props.counter_id,
+        },
       });
+      
+
     },
     register_counter() {
-      const iddeviceSelector = this.$refs.iddevice;
+      const iddeviceSelector = this.$refs.ID_Device;
       const locationSelector = this.$refs.location;
       const maxpeopleSelector = this.$refs.maxpeople;
       iddeviceSelector.validate();
@@ -485,7 +465,7 @@ export default {
         return;
       else {
         let data = {
-          iddevice: this.iddevice,
+          ID_Device: this.ID_Device,
           location: this.location,
           maxpeople: this.maxpeople,
         };

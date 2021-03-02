@@ -2,18 +2,31 @@
 
 
 import { Bar } from 'vue-chartjs'
+import { date } from "quasar";
 export default {
     name:"graphmonthcounter",
     
     extends: Bar,
+ 
    mounted() {
-        this.renderChart({
-            labels: [
-                'January',
-                'February',
-                
-               
-            ],
+
+         let count=[];
+       let currentdate=[]
+       
+   this.$store
+      .dispatch("deviceammonia/getallcount")
+      .then((response) => {
+
+for(const dataobj of response.data.data)
+          {
+count.push(parseInt(dataobj.count))
+currentdate.push(dataobj.date)
+
+          }
+
+
+ this.renderChart({
+            labels: [date.formatDate(currentdate, "MMM")],
             datasets: [{
                     barPercentage: 0.7,
                     categoryPercentage: 0.5,
@@ -22,7 +35,7 @@ export default {
                     borderColor: '#eb3434',
                     hoverBackgroundColor: '#eb3434',
                     hoverBorderColor: '#eb3434',
-                    data: [33, 27],
+                    data: count,
                 },
                
             ],
@@ -50,6 +63,13 @@ export default {
                 }, ],
             },
         })
+
+       })
+      .catch((error) => {
+       console.log(error)
+      });
+       
+       
     },
 }
 </script>

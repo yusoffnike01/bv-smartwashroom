@@ -7,13 +7,30 @@ export default {
     
     extends: Line,
    mounted() {
-        this.renderChart({
-            labels: [
-                'Device 01 Toilet 1 Level-35 Male',
-                'Device 02 Toilet 3 Level-35 Female',
-                'Device 03 Toilet 4 Level-36 Male',
-               
-            ],
+
+        let total=[];
+      let location=[];
+      let ID_Device=[];
+      let compile=[];
+
+
+      this.$store
+      .dispatch("deviceammonia/perdevicecounter")
+      .then((response) => {
+
+
+          for(const dataobj of response.data.data)
+          {
+total.push(parseInt(dataobj.count))
+location.push(dataobj.location)
+ID_Device.push (dataobj.ID_Device)
+compile.push(ID_Device+"-"+location)
+
+          }
+
+
+           this.renderChart({
+            labels: compile,
             datasets: [{
                     barPercentage: 0.7,
                     categoryPercentage: 0.5,
@@ -23,7 +40,7 @@ export default {
                     // borderColor: '#3498eb',
                     hoverBackgroundColor: '#3498eb',
                     hoverBorderColor: '#3498eb',
-                    data: [10, 15, 7],
+                    data: total,
                 },
                
             ],
@@ -51,6 +68,14 @@ export default {
                 }, ],
             },
         })
+
+      })
+      .catch((error) => {
+       console.log(error)
+      });
+      
+
+       
     },
 }
 </script>

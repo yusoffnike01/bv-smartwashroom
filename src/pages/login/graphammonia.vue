@@ -1,9 +1,9 @@
 
 <template>
-  <div class="q-pa-md" style="background-color:white">
+  <div class="q-pa-md" style="background-color: white">
     <div class="row justify-center">
       <div class="col-12 col-md-6">
-        <q-card flat  class="my-card q-ma-sm" square>
+        <q-card flat class="my-card q-ma-sm" square>
           <q-card-section>
             <div class="text-h6">The Total Ammonia Device on Toilet</div>
             <div class="text-subtitle2"></div>
@@ -18,7 +18,7 @@
       </div>
 
       <div class="col-12 col-md-6">
-        <q-card flat  class="my-card q-ma-sm" square>
+        <q-card flat class="my-card q-ma-sm" square>
           <q-card-section>
             <div class="text-h6">Ammonia Per Device</div>
             <div class="text-subtitle2"></div>
@@ -33,10 +33,10 @@
       </div>
 
       <div class="col-12 col-md-6">
-        <q-card flat  class="my-card q-ma-sm" square>
+        <q-card flat class="my-card q-ma-sm" square>
           <q-card-section>
             <div class="text-h6">The list device Ammonia Sensor</div>
-            <div class="text-subtitle2"  v-if="this.isadmin" >
+            <div class="text-subtitle2" v-if="this.isadmin">
               Click Here to set level Ammonia
               <q-btn
                 dense
@@ -105,7 +105,7 @@
               <template v-slot:body-cell-actions="props">
                 <q-td :props="props">
                   <q-btn
-                    v-if="this.isadmin"
+                   
                     dense
                     round
                     flat
@@ -114,7 +114,7 @@
                     icon="edit"
                   ></q-btn>
                   <q-btn
-                    v-if="created"
+                   
                     dense
                     round
                     flat
@@ -126,41 +126,31 @@
               </template>
               <template v-slot:no-data="{}">
                 <div class="full-width row flex-center text-blue q-gutter-sm">
-                   <q-spinner
-        color="primary"
-        size="3em"
-      />
+                  <q-spinner color="primary" size="3em" />
 
                   <span> Loading.. </span>
-              
                 </div>
               </template>
             </q-table>
           </div>
           <q-card-section> </q-card-section>
         </q-card>
-        <br><br>
+        <br /><br />
       </div>
 
       <div v-if="this.isadmin" class="col-12 col-md-6">
-        <q-card
-          flat
-          
-          class="my-card q-ma-sm"
-          square
-          style="height: 445px"
-        >
+        <q-card flat class="my-card q-ma-sm" square style="height: 445px">
           <q-card-section>
-            <div class="text-h6">The list device Ammonia Sensor</div>
+            <div class="text-h6">Register Ammonia Sensor Device</div>
             <div class="text-subtitle2"></div>
           </q-card-section>
 
           <q-separator dark inset />
-          <div class="q-pa-md">Register Ammonia Sensor Device</div>
+          <div class="q-pa-md"></div>
           <q-card-section>
             <q-input
-              ref="iddevice"
-              v-model="iddevice"
+              ref="ID_Device"
+              v-model="ID_Device"
               label="ID Device"
               placeholder=""
               hint=""
@@ -185,8 +175,6 @@
                 />
               </div>
             </div>
-
-     
           </q-card-section>
         </q-card>
       </div>
@@ -202,25 +190,25 @@ import ammonia from "@/pages/login/ammonia.vue";
 // import ammoniadevice from "@/pages/login/ammoniadevice.vue";
 import graphamonialine from "@/pages/login/graphamonialine.vue";
 // import { mapGetters } from "vuex";
+import { date } from "quasar";
 
 export default {
   name: "graphammonia",
   components: {
     ammonia,
     // ammoniadevice,
-    graphamonialine
+    graphamonialine,
   },
 
   data() {
     return {
       filter: "",
       loading: false,
-      iddevice: "",
+      ID_Device: "",
       location: "",
       level: "",
       value: 61,
-      isadmin:null,
-      
+      isadmin: null,
 
       update: false,
 
@@ -237,24 +225,30 @@ export default {
       //name every Column
 
       columns: [
-        { name: "User", align: "center", label: "No", field: "userId" },
+        { name: "No", align: "center", label: "No", field: "No" },
         {
-          name: "id",
+          name: "ID_Device",
           align: "center",
-          label: "ID Device",
-          field: "id",
+          label: "ID_Device",
+          field: "ID_Device",
         },
         {
-          name: "title",
+          name: "level",
           align: "center",
           label: "Ammonia Level (Mg)",
-          field: "title",
+          field: "level",
         },
 
-        { name: "completed", label: "Update At", field: "completed" },
-        { name: "location", label: "Location", field: "Location" },
+        {
+          name: "updated_at",
+          label: "Update At",
+          field: "updated_at",
+          format: (val) => `${date.formatDate(val, "DD-MMM-YYYY hh:m:A")}`,
+        },
+        { name: "location", label: "Location", field: "location" },
 
-        { name: "actions", label: "Actions", field: "Action" },
+        { name: "actions", label: "Actions", field: "actions" },
+       
       ],
       data: [],
 
@@ -262,34 +256,23 @@ export default {
     };
   },
 
-// created()
-// {
+  // created()
+  // {
 
-// this.isadmin=this.$store.getters['auth/isadmin']
+  // this.isadmin=this.$store.getters['auth/isadmin']
 
-
-// },
+  // },
   // computed: {
   //   ...mapGetters("auth", ["isadmin"]),
   // },
 
   mounted() {
-
-
     // condition detect role id
-  if(localStorage.getItem('role_id')==1)
-   {
-     this.isadmin=true
-     console.log(' masuk......')
-    
-   }
-   else if (localStorage.getItem('role_id')==2)
-
-{
-    this.isadmin=false
-  
-    console.log('x masuk......')
-}
+    if (localStorage.getItem("role_id") == 1) {
+      this.isadmin = true;
+    } else if (localStorage.getItem("role_id") == 2) {
+      this.isadmin = false;
+    }
     // get initial data from server (1st page)
     this.onRequest({
       pagination: this.pagination,
@@ -306,21 +289,19 @@ export default {
       this.$store
         .dispatch("cleaner/display")
         .then((response) => {
-          if (localStorage.getItem('role_id')==1) {
+          if (localStorage.getItem("role_id") == 1) {
             (this.visibleColumns = [
-              "User",
-              "id",
-              "title",
-              "completed",
+              "No",
+              "ID_Device",
+              "level",
+              "updated_at",
               "location",
+              "actions"
             ]),
-              
-           console.log
+              console.log;
+          }
 
-            
-          } 
-
-          this.original = response.data;
+          this.original = response.data.data;
 
           setTimeout(() => {
             // update rowsCount with appropriate value
@@ -400,16 +381,16 @@ export default {
       });
       return count;
     },
-// register device ammonia 
+    // register device ammonia
     register_ammonia() {
-      const iddeviceSelector = this.$refs.iddevice;
+      const ID_DeviceSelector = this.$refs.ID_Device;
       const locationSelector = this.$refs.location;
-      iddeviceSelector.validate();
+      ID_DeviceSelector.validate();
       locationSelector.validate();
-      if (iddeviceSelector.hasError || locationSelector.hasError) return;
+      if (ID_DeviceSelector.hasError || locationSelector.hasError) return;
       else {
         let data = {
-          iddevice: this.iddevice,
+          ID_Device: this.ID_Device,
           location: this.location,
         };
 
@@ -427,18 +408,16 @@ export default {
           // error
           .catch(() => {
             this.$q.notify({
-              // error.response.data.error,
               message: "PLEASE INSERT API FIRST... THANK YOU",
               color: "negative",
               icon: "error",
               position: "top",
             });
           });
-       
       }
     },
 
-// method edit row table ammonia
+    // method edit row table ammonia
     editRow(props) {
       this.$store
         .dispatch("cleaner/updatebyid", props)
@@ -462,7 +441,7 @@ export default {
         });
     },
 
-// method delete  row table ammonia
+    // method delete  row table ammonia
 
     deleteRow(id) {
       this.$store
