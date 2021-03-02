@@ -110,9 +110,42 @@
                     round
                     flat
                     color="blue"
-                    @click="editRow(props.row.id)"
+                    @click="update=true"
                     icon="edit"
-                  ></q-btn>
+                  >
+                  
+                  
+                      <q-dialog v-model="update">
+                        <q-card style="width: 700px; max-width: 80vw" >
+                          <q-card-section>
+                            <div class="text-h6">Update location</div>
+                          </q-card-section>
+
+                          <q-card-section class="q-pt-none">
+                            <q-input
+                              outlined
+                              ref="location"
+                              v-model="location"
+                              label="location"
+                            
+                         outline     hint=""
+                              :rules="[
+                                (val) => !!val || 'Please update Your location',
+                              ]"
+                            />
+                          </q-card-section>
+
+                     
+
+                          <q-card-actions
+                            align="right"
+                            class="bg-white text-teal"
+                          >
+                            <q-btn flat label="OK" @click="updatelocation" />
+                          </q-card-actions>
+                        </q-card>
+                      </q-dialog>
+                  </q-btn>
                   <q-btn
                    
                     dense
@@ -472,6 +505,11 @@ export default {
       };
 
       console.log(data);
+      this.update = false;
+    },
+
+    // update location device
+    updatelocation() {
       this.update = false;
     },
   },

@@ -162,7 +162,7 @@
       </div>
 
       <div  class="col-12 col-md-6" v-if="this.isadmin" >
-        <!-- <q-card square flat  class="my-card q-mt-sm">
+        <q-card square flat  class="my-card q-mt-sm">
           <q-card-section>
             <q-table
               title="Table"
@@ -217,7 +217,7 @@
               </center>
             </q-table>
           </q-card-section>
-        </q-card> -->
+        </q-card>
       </div>
     </div>
 
@@ -495,60 +495,60 @@ export default {
   },
 
   methods: {
-    onRequest(props) {
-      const { page, rowsPerPage, sortBy, descending } = props.pagination;
-      const filter = props.filter;
+    // onRequest(props) {
+    //   const { page, rowsPerPage, sortBy, descending } = props.pagination;
+    //   const filter = props.filter;
 
-      this.loading = true;
-      this.$store
-        .dispatch("cleaner/display")
-        .then((response) => {
-          this.original = response.data;
+    //   this.loading = true;
+    //   this.$store
+    //     .dispatch("cleaner/display")
+    //     .then((response) => {
+    //       this.original = response.data;
 
-          setTimeout(() => {
-            // update rowsCount with appropriate value
-            this.pagination.rowsNumber = this.getRowsNumberCount(filter);
+    //       setTimeout(() => {
+    //         // update rowsCount with appropriate value
+    //         this.pagination.rowsNumber = this.getRowsNumberCount(filter);
 
-            // get all rows if "All" (0) is selected
-            const fetchCount =
-              rowsPerPage === 0 ? this.pagination.rowsNumber : rowsPerPage;
+    //         // get all rows if "All" (0) is selected
+    //         const fetchCount =
+    //           rowsPerPage === 0 ? this.pagination.rowsNumber : rowsPerPage;
 
-            // calculate starting row of data
-            const startRow = (page - 1) * rowsPerPage;
+    //         // calculate starting row of data
+    //         const startRow = (page - 1) * rowsPerPage;
 
-            // fetch data from "server"
-            const returnedData = this.fetchFromServer(
-              startRow,
-              fetchCount,
-              filter,
-              sortBy,
-              descending
-            );
+    //         // fetch data from "server"
+    //         const returnedData = this.fetchFromServer(
+    //           startRow,
+    //           fetchCount,
+    //           filter,
+    //           sortBy,
+    //           descending
+    //         );
 
-            // clear out existing data and add new
-            this.data.splice(0, this.data.length, ...returnedData);
+    //         // clear out existing data and add new
+    //         this.data.splice(0, this.data.length, ...returnedData);
 
-            // don't forget to update local pagination object
-            this.pagination.page = page;
-            this.pagination.rowsPerPage = rowsPerPage;
-            this.pagination.sortBy = sortBy;
-            this.pagination.descending = descending;
+    //         // don't forget to update local pagination object
+    //         this.pagination.page = page;
+    //         this.pagination.rowsPerPage = rowsPerPage;
+    //         this.pagination.sortBy = sortBy;
+    //         this.pagination.descending = descending;
 
-            // ...and turn of loading indicator
-            this.loading = false;
-          }, 1500);
-        })
-        .catch((error) => {
-          this.$q.notify({
-            message: error.response.data.error,
-            color: "negative",
-            icon: "error",
-            position: "top",
-          });
-        });
+    //         // ...and turn of loading indicator
+    //         this.loading = false;
+    //       }, 1500);
+    //     })
+    //     .catch((error) => {
+    //       this.$q.notify({
+    //         message: error.response.data.error,
+    //         color: "negative",
+    //         icon: "error",
+    //         position: "top",
+    //       });
+    //     });
 
-      // emulate server
-    },
+    //   // emulate server
+    // },
 
     fetchFromServer(startRow, count, filter, sortBy, descending) {
       const data = filter
