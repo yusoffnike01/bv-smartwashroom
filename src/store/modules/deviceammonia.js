@@ -4,7 +4,7 @@ const InsertAPIDEVICE='https://washroomiot.herokuapp.com/api/v1/ammoni'
 const displaytotaldeviceammonia='https://washroomiot.herokuapp.com/api/v1/totaldevice'
 const displayperdeviceammonia='https://washroomiot.herokuapp.com/api/v1/detailammoni'
 const INSERTAPIDEVICECOUNTER='https://washroomiot.herokuapp.com/api/v1/counter'
-const displayperdevicecounter='http://washroomiot.herokuapp.com/api/v1/detailcounter'
+const displayperdevicecounter='https://washroomiot.herokuapp.com/api/v1/detailcounter'
 const getallcount='https://washroomiot.herokuapp.com/api/v1/getallcount'
 const getcountbyid='https://washroomiot.herokuapp.com/api/v1/detailcounter'
 
