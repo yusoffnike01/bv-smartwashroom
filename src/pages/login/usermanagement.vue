@@ -162,7 +162,7 @@
       </div>
 
       <div  class="col-12 col-md-6" v-if="this.isadmin" >
-        <q-card square flat  class="my-card q-mt-sm">
+        <!-- <q-card square flat  class="my-card q-mt-sm">
           <q-card-section>
             <q-table
               title="Table"
@@ -217,7 +217,7 @@
               </center>
             </q-table>
           </q-card-section>
-        </q-card>
+        </q-card> -->
       </div>
     </div>
 
