@@ -72,20 +72,49 @@
                     flat
                     color="blue"
                     v-if="isadmin"
-                    @click="editRow(props.row.id)"
+                    @click="Currentupdate(props.row.location)"
                     icon="edit"
                   >
+                    <q-dialog v-model="updatelocation">
+                      <q-card style="width: 700px; max-width: 80vw">
+                        <q-card-section>
+                          <div class="text-h6">Update location</div>
+                        </q-card-section>
+
+                        <q-card-section class="q-pt-none">
+                          <q-input
+                            outlined
+                            ref="location"
+                            v-model="location"
+                            label="location"
+                            outline
+                            hint=""
+                            :rules="[
+                              (val) => !!val || 'Please update Your location',
+                            ]"
+                          />
+                        </q-card-section>
+  <q-card-actions
+                          align="right"
+                          class="bg-white text-teal"
+                        >
+                          <q-btn flat label="OK" />
+                        </q-card-actions>
+                      
+                      </q-card>
+                    </q-dialog>
                     <q-tooltip content-class="bg-blue" :offset="[10, 10]">
                       Click Now
                     </q-tooltip></q-btn
                   >
+
                   <q-btn
                     dense
                     round
                     flat
                     color="red"
                     v-if="isadmin"
-                    @click="deleteRow(props.row.id)"
+                    @click="deleteRow(props.row.counter_id)"
                     icon="delete"
                   >
                     <q-tooltip content-class="bg-red" :offset="[10, 10]">
@@ -140,7 +169,7 @@
                 placeholder=""
                 hint=""
                 :rules="[(val) => !!val || 'Please fill Location ']"
-              /> 
+              />
 
               <q-input
                 ref="maxpeople"
@@ -168,29 +197,6 @@
   </div>
 </template>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <script>
 import graphcounter from "@/pages/login/graphcounter.vue";
 import graphmonthcounter from "@/pages/login/graphmonthcounter.vue";
@@ -212,6 +218,7 @@ export default {
       value: 61,
       isadmin: null,
       update: false,
+      updatelocation: false,
 
       pagination: {
         sortBy: "name",
@@ -394,9 +401,9 @@ export default {
     //   console.log(data);
     // },
 
-    editRow(props) {
+    editRow(counter_id) {
       this.$store
-        .dispatch("cleaner/updatebyid", props)
+        .dispatch("cleaner/updatebyid", counter_id)
         .then(() => {
           this.$q.notify({
             message: "Register Successful",
@@ -416,9 +423,9 @@ export default {
           });
         });
     },
-    deleteRow(id) {
+    deleteRow(counter_id) {
       this.$store
-        .dispatch("cleaner/deletebyid", id)
+        .dispatch("cleaner/deletebyid", counter_id)
         .then(() => {
           this.$q.notify({
             message: "Register Successful",
@@ -443,13 +450,11 @@ export default {
       //  this.$store.dispatch("deviceammonia/successdata", props).then(() => {});
       this.$router.push({
         name: "detailviewcounter",
-    
+
         params: {
           id: props.counter_id,
         },
       });
-      
-
     },
     register_counter() {
       const iddeviceSelector = this.$refs.ID_Device;
@@ -491,6 +496,11 @@ export default {
             });
           });
       }
+    },
+
+    Currentupdate(location) {
+      this.updatelocation = true;
+      this.location = location;
     },
   },
 };

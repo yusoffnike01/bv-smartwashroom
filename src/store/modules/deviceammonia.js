@@ -7,14 +7,14 @@ const INSERTAPIDEVICECOUNTER='https://washroomiot.herokuapp.com/api/v1/counter'
 const displayperdevicecounter='https://washroomiot.herokuapp.com/api/v1/detailcounter'
 const getallcount='https://washroomiot.herokuapp.com/api/v1/getallcount'
 const getcountbyid='https://washroomiot.herokuapp.com/api/v1/detailcounter'
+const deletebyammoniid='https://washroomiot.herokuapp.com/api/v1/ammoni'
+const deletebycounterid='https://washroomiot.herokuapp.com/api/v1/counter'
 
 
 
 
 const state = () => ({
  id:null
- 
- 
 });
 
 
@@ -171,6 +171,35 @@ return new Promise((resolve, reject) => {
           })
           .catch((error) => {
           
+            reject(error);
+          });
+      });
+    },
+
+    deletebyammoniid(id)
+    {
+      return new Promise((resolve, reject) => {
+        Axios.get(deletebyammoniid+`/${id}` )
+          .then((response) => {
+          
+   
+            resolve(response);
+         
+          })
+          .catch((error) => {
+          
+            reject(error);
+          });
+      });
+    },
+    deletebycounterid(id)
+    {
+      return new Promise((resolve, reject) => {
+        Axios.get(deletebycounterid+`/${id}` )
+          .then((response) => {
+            resolve(response)
+          })
+          .catch((error) => {
             reject(error);
           });
       });

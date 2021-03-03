@@ -105,54 +105,48 @@
               <template v-slot:body-cell-actions="props">
                 <q-td :props="props">
                   <q-btn
-                   
                     dense
                     round
                     flat
                     color="blue"
-                    @click="update=true"
+                    @click="Currentupdate(props.row.location)"
                     icon="edit"
                   >
-                  
-                  
-                      <q-dialog v-model="update">
-                        <q-card style="width: 700px; max-width: 80vw" >
-                          <q-card-section>
-                            <div class="text-h6">Update location</div>
-                          </q-card-section>
+                    <q-dialog v-model="updatelocation">
+                      <q-card style="width: 700px; max-width: 80vw">
+                        <q-card-section>
+                          <div class="text-h6">Update location</div>
+                        </q-card-section>
 
-                          <q-card-section class="q-pt-none">
-                            <q-input
-                              outlined
-                              ref="location"
-                              v-model="location"
-                              label="location"
-                            
-                         outline     hint=""
-                              :rules="[
-                                (val) => !!val || 'Please update Your location',
-                              ]"
-                            />
-                          </q-card-section>
+                        <q-card-section class="q-pt-none">
+                          <q-input
+                            outlined
+                            ref="location"
+                            v-model="location"
+                            label="location"
+                            outline
+                            hint=""
+                            :rules="[
+                              (val) => !!val || 'Please update Your location',
+                            ]"
+                          />
+                        </q-card-section>
 
-                     
-
-                          <q-card-actions
-                            align="right"
-                            class="bg-white text-teal"
-                          >
-                            <q-btn flat label="OK" @click="updatelocation" />
-                          </q-card-actions>
-                        </q-card>
-                      </q-dialog>
+                        <q-card-actions
+                          align="right"
+                          class="bg-white text-teal"
+                        >
+                          <q-btn flat label="OK" />
+                        </q-card-actions>
+                      </q-card>
+                    </q-dialog>
                   </q-btn>
                   <q-btn
-                   
                     dense
                     round
                     flat
                     color="red"
-                    @click="deleteRow(props.row.id)"
+                    @click="deleteRow(props.row.ammoni_id)"
                     icon="delete"
                   ></q-btn>
                 </q-td>
@@ -243,6 +237,7 @@ export default {
       value: 61,
       isadmin: null,
 
+      updatelocation: false,
       update: false,
 
       visibleColumns: [],
@@ -281,7 +276,6 @@ export default {
         { name: "location", label: "Location", field: "location" },
 
         { name: "actions", label: "Actions", field: "actions" },
-       
       ],
       data: [],
 
@@ -329,7 +323,7 @@ export default {
               "level",
               "updated_at",
               "location",
-              "actions"
+              "actions",
             ]),
               console.log;
           }
@@ -476,9 +470,9 @@ export default {
 
     // method delete  row table ammonia
 
-    deleteRow(id) {
+    deleteRow(ammoni_id) {
       this.$store
-        .dispatch("cleaner/deletebyid", id)
+        .dispatch("deviceammonia/deletebyammoniid", ammoni_id)
         .then(() => {
           this.$q.notify({
             message: "Register Successful",
@@ -491,7 +485,7 @@ export default {
         .catch(() => {
           this.$q.notify({
             // error.response.data.error,
-            message: "PLEASE INSERT API FIRST... THANK YOU",
+            message: "Please insert API first",
             color: "negative",
             icon: "error",
             position: "top",
@@ -509,8 +503,10 @@ export default {
     },
 
     // update location device
-    updatelocation() {
-      this.update = false;
+
+    Currentupdate(location) {
+      this.updatelocation = true;
+      this.location = location;
     },
   },
 };
