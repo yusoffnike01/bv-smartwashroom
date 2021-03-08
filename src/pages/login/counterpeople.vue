@@ -98,7 +98,7 @@
                           align="right"
                           class="bg-white text-teal"
                         >
-                          <q-btn flat label="OK" />
+                          <q-btn flat label="OK" @click="editRow(props.row.counter_id)"/>
                         </q-card-actions>
                       
                       </q-card>
@@ -230,7 +230,7 @@ export default {
 
       //name every Column
       columns: [
-        { name: "No", align: "center", label: "No", field: "no" },
+        // { name: "No", align: "center", label: "No", field: "no" },
         {
           name: "ID_Device",
           align: "center",
@@ -403,7 +403,7 @@ export default {
 
     editRow(counter_id) {
       this.$store
-        .dispatch("cleaner/updatebyid", counter_id)
+        .dispatch("deviceammonia/updatecounter", counter_id)
         .then(() => {
           this.$q.notify({
             message: "Register Successful",
@@ -425,7 +425,7 @@ export default {
     },
     deleteRow(counter_id) {
       this.$store
-        .dispatch("cleaner/deletebyid", counter_id)
+        .dispatch("deviceammonia/deletecounterdevice", counter_id)
         .then(() => {
           this.$q.notify({
             message: "Register Successful",

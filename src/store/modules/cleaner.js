@@ -3,7 +3,7 @@ import Axios from "axios";
 const DISPLAY='https://washroomiot.herokuapp.com/api/v1/detailammoni'
 const Insert=''
 const DELETE=''
-const UPDATE=''
+const UPDATE='https://washroomiot.herokuapp.com/api/v1/ammoni'
 
 const actions={
 
@@ -44,7 +44,7 @@ insertdata(state,payload)
 deletebyid(state,id)
 {
   return new Promise((resolve, reject) => {
-    Axios.delete(DELETE+`${id}` )
+    Axios.delete(DELETE+`/${id}` )
       .then((response) => {
       
         console.log(response)
@@ -60,7 +60,7 @@ deletebyid(state,id)
 updatebyid(state,id)
 {
   return new Promise((resolve, reject) => {
-    Axios.put(UPDATE+`${id}` )
+    Axios.put(UPDATE+`/${id}` )
       .then((response) => {
       
         console.log(response)

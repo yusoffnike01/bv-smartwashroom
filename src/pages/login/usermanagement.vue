@@ -42,8 +42,8 @@
                 <tr></tr>
 
                 <tr class="text-h6">
-                  <td>Last Login :</td>
-                  <td>-----</td>
+                  <!-- <td>Last Login :</td>
+                  <td>-----</td> -->
                 </tr>
                 <tr>
                   <td>

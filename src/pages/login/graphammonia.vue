@@ -136,7 +136,7 @@
                           align="right"
                           class="bg-white text-teal"
                         >
-                          <q-btn flat label="OK" />
+                          <q-btn flat label="OK" @click="editRow(props.row.ammoni_id)"/>
                         </q-card-actions>
                       </q-card>
                     </q-dialog>
@@ -253,7 +253,7 @@ export default {
       //name every Column
 
       columns: [
-        { name: "No", align: "center", label: "No", field: "No" },
+        // { name: "No", align: "center", label: "No", field: "No" },
         {
           name: "ID_Device",
           align: "center",
@@ -445,9 +445,9 @@ export default {
     },
 
     // method edit row table ammonia
-    editRow(props) {
+    editRow(ammoni_id) {
       this.$store
-        .dispatch("cleaner/updatebyid", props)
+        .dispatch("cleaner/updatebyid", ammoni_id)
         .then(() => {
           this.$q.notify({
             message: "Register Successful",

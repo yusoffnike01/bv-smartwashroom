@@ -9,6 +9,10 @@ const getallcount='https://washroomiot.herokuapp.com/api/v1/getallcount'
 const getcountbyid='https://washroomiot.herokuapp.com/api/v1/detailcounter'
 const deletebyammoniid='https://washroomiot.herokuapp.com/api/v1/ammoni'
 const deletebycounterid='https://washroomiot.herokuapp.com/api/v1/counter'
+const setdataammonia='https://washroomiot.herokuapp.com/api/v1/infoammonia'
+const updatecounter='https://washroomiot.herokuapp.com/api/v1/counter'
+const deletecounterdevice='https://washroomiot.herokuapp.com/api/v1/counter'
+
 
 
 
@@ -124,7 +128,7 @@ const actions={
           });
       });
 
-
+ 
     },
     perdevicecounter()
     {
@@ -203,7 +207,47 @@ return new Promise((resolve, reject) => {
             reject(error);
           });
       });
-    }
+    },
+    setdataammonia(id)
+    {
+      return new Promise((resolve, reject) => {
+        Axios.get(setdataammonia+`/${id}` )
+          .then((response) => {
+            resolve(response)
+          })
+          .catch((error) => {
+            reject(error);
+          });
+      });
+    },
+    updatecounter(id)
+    {
+      return new Promise((resolve, reject) => {
+        Axios.put(updatecounter+`/${id}` )
+          .then((response) => {
+            resolve(response)
+          })
+          .catch((error) => {
+            reject(error);
+          });
+      });
+    },
+    deletecounterdevice(state,id)
+{
+  return new Promise((resolve, reject) => {
+    Axios.delete(deletecounterdevice+`/${id}` )
+      .then((response) => {
+      
+        console.log(response)
+        resolve(response);
+      })
+      .catch((error) => {
+      
+        reject(error);
+      });
+  });
+
+},
   }
 
 
